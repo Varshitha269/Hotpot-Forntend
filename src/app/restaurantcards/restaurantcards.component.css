@@ -1,0 +1,131 @@
+/* Integrate your CSS with Bootstrap */
+.item-bar .number {
+  font-weight: 600;
+  font-size: 28px;
+  color: #282c3f;
+}
+
+.filters div {
+  font-size: 16px;
+  font-weight: 300;
+  color: #686b78;
+}
+
+.restaurant-list .list-item {
+  border: 1px solid #fff;
+  padding: 15px; /* Decreased padding */
+  margin-bottom: 10px; /* Reduced space between cards */
+  transition: 0.3s;
+  height: 100%; /* Ensure the cards fill the available space */
+}
+
+.restaurant-list .list-item:hover {
+  border-color: #d3d5df;
+  box-shadow: 0 4px 7px 0 rgb(218 220 230 / 60%);
+}
+
+.item-content .name {
+  font-size: 17px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.item-content .food-items {
+  color: #686b78;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+.info-div {
+  margin-top: 10px; /* Decreased the margin-top */
+  font-size: 12px;
+  font-weight: 300;
+  color: #535665;
+}
+
+.rating {
+  background-color: #db7c38;
+  color: white;
+  padding: 0 5px;
+  border-radius: 4px;
+}
+
+.offer-div {
+  margin-top: 8px; /* Decreased margin-top to reduce extra space */
+  padding-top: 5px;
+  border-top: 1px solid #e9e9eb;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8a584b;
+}
+
+.icon-offer-filled {
+  font-size: 14px; /* Decreased icon size */
+  margin-right: 5px;
+}
+
+/* General container styling for the carousel */
+.category-carousel {
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.category-carousel h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Scroll container styling */
+.scroll-container {
+  overflow-x: auto;  /* Enables horizontal scrolling */
+  padding-bottom: 10px;  /* Adds space below for scrollbar visibility */
+  white-space: nowrap;  /* Prevents the content from wrapping to a new line */
+  scroll-behavior: smooth;  /* Smooth scrolling effect */
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+/* Category container styling (flex to align items) */
+.category-container {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+  gap: 20px; /* Space between each category card */
+}
+
+/* Single Category Card Styling */
+.category-card {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.category-card:hover {
+  transform: scale(1.1); /* Zoom effect on hover */
+}
+
+/* Image Styling */
+.category-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%; /* Makes the image circular */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Styling under the image */
+.category-card p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #555;
+}

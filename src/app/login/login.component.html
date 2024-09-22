@@ -1,0 +1,27 @@
+<!-- Background Overlay with blur -->
+<div class="overlay" *ngIf="loginState === 'in'" (click)="closeModal()"></div>
+
+<!-- Login Modal -->
+<div class="login-modal" [@slideInOut]="loginState">
+  <div class="login-container">
+    <!-- Close button -->
+    <button class="close-btn" (click)="closeModal()">&times;</button>
+    
+    <!-- Login Title -->
+    <h3>Login</h3>
+    <p>or <a href="#">create an account</a></p>
+
+    <!-- Phone Input -->
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Phone number" />
+    </div>
+
+    <!-- Login Button -->
+    <button class="btn login-btn w-100">LOGIN</button>
+
+    <!-- Terms and Conditions -->
+    <p class="terms">
+      By clicking on Login, I accept the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a>.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.rounded-search {
+  border-radius: 25px; /* Adjust for roundness */
+  height: 38px; /* Adjust height */
+  padding: 0.5rem 1rem; /* Adjust padding */
+  max-width: 300px; /* Set maximum width */
+}
+
+.custom-search {
+  width: 300px; /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+  font-size: 16px; /* Change font size for better visibility */
+}

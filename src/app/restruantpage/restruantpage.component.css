@@ -1,0 +1,137 @@
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    position: relative;
+}
+
+.menu-item-img {
+    position: relative;
+    margin-left: 20px; /* Image on the right */
+}
+
+.menu-item-img img {
+    width: 200px; /* Increased width of the image */
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.add-btn {
+    position: absolute;
+    bottom: 0;  /* Ensure the button is at the very bottom of the image */
+    right: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #218838;
+}
+
+.menu-item-details {
+    flex: 1;
+}
+
+.menu-item h5 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.bestseller {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.price, .rating {
+    margin: 5px 0;
+}
+
+p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item-details {
+    max-width: 70%;
+}
+
+.menu-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+}
+
+.menu-item h5 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.menu-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.rating {
+    font-size: 14px;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.add-btn {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.bestseller {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.rating i {
+    color: #ffc107;
+}
+
+.menu-button {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+}
+.custom-container {
+    max-width: 900px;  /* Adjust this width to your preference */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
