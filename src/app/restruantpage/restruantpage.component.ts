@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restruantpage',
@@ -8,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrl: './restruantpage.component.css'
 })
 export class RestruantpageComponent {
+  restarauntName:string="";
+  constructor(private activatedroute:ActivatedRoute )
+  {
+    this.activatedroute.params.subscribe((res:any)=>{
+      this.restarauntName=res.rname;
+
+
+    })
+
+  }
 
 }

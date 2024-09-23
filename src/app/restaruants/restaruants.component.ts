@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restaruants',
@@ -98,5 +100,22 @@ export class RestaruantsComponent {
       this.restaurants.sort((a, b) => b.cost - a.cost);
     }
   }
+ 
+
+  naviagteToRestaruantmenu(restaurantname:string)
+  {
+    this.router.navigate(['app-restruantpage',restaurantname])
+  }
+  fooditem:string="";
+  constructor(private activatedroute:ActivatedRoute,private router: Router )
+  {
+    this.activatedroute.params.subscribe((res:any)=>{
+      this.fooditem=res.name;
+
+
+    })
+
+  }
+
 
 }

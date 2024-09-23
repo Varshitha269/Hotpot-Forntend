@@ -3,10 +3,10 @@
   <h2>What's on your mind?</h2>
   <div class="scroll-container">
     <div class="category-container d-flex">
-      <div *ngFor="let category of categories" class="category-card mx-3 text-center">
-        <a href="#">
+      <div *ngFor="let category of categories" (click)="naviagteToRestaruantFoods(category.name)" class="category-card mx-3 text-center">
+        
           <img [src]="category.image" [alt]="category.name" class="category-img" />
-        </a>
+        
         <p>{{ category.name }}</p>
       </div>
     </div>
@@ -31,7 +31,7 @@
 
   <!-- Restaurants List Section -->
   <div class="row restaurant-list">
-    <div class="col-md-3" *ngFor="let restaurant of restaurants">
+    <div class="col-md-3" *ngFor="let restaurant of restaurants" (click)="naviagteToRestaruantmenu(restaurant.name)">
       <div class="card list-item h-100">
         <img [src]="restaurant.image" class="card-img-top" alt="{{ restaurant.name }}">
         <div class="card-body item-content">

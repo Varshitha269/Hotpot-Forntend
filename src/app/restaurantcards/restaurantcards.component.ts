@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-restaurantcards',
@@ -119,5 +119,20 @@ export class RestaurantCardsComponent {
     } else if (type === 'costHl') {
       this.restaurants.sort((a, b) => b.cost - a.cost);
     }
+  }
+  constructor(private router: Router)
+  {
+    
+
+  }
+
+  naviagteToRestaruantFoods(categoryname:string)
+  {
+    this.router.navigate(['app-restaruants',categoryname])
+
+  }
+  naviagteToRestaruantmenu(restaurantname:string)
+  {
+    this.router.navigate(['app-restruantpage',restaurantname])
   }
 }

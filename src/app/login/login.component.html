@@ -6,22 +6,43 @@
   <div class="login-container">
     <!-- Close button -->
     <button class="close-btn" (click)="closeModal()">&times;</button>
+
+    <!-- LOGIN starts -->
+    <div class="login-page">
+      <div class="form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <h2>SIGN IN TO YOUR ACCOUNT</h2>
     
-    <!-- Login Title -->
-    <h3>Login</h3>
-    <p>or <a href="#">create an account</a></p>
-
-    <!-- Phone Input -->
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Phone number" />
+          <input type="text" formControlName="user" required placeholder="Username" id="user" autocomplete="off" />
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="pass"
+            placeholder="Password"
+            id="pass"
+            (input)="formvalid()"
+            autocomplete="off"
+          />
+    
+          <!-- <img
+            [src]="passwordVisible ? 'https://static.thenounproject.com/png/777494-200.png' : 'https://cdn2.iconfinder.com/data/icons/basic-ui-interface-v-2/32/hide-512.png'"
+            (click)="show()"
+            id="showimg"
+            style="cursor: pointer;"
+            alt="Show/Hide Password"
+          /> -->
+    
+          <span id="vaild-pass">{{ passwordErrorMessage }}</span>
+    
+          <button type="submit" [disabled]="loginForm.invalid">SIGN IN</button>
+    
+          <p class="message"><a href="#">Forgot your password?</a></p>
+        </form>
+      </div>
     </div>
+    
+      <!-- Login ends -->
 
-    <!-- Login Button -->
-    <button class="btn login-btn w-100">LOGIN</button>
 
-    <!-- Terms and Conditions -->
-    <p class="terms">
-      By clicking on Login, I accept the <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy</a>.
-    </p>
   </div>
-</div>
+  </div>
+

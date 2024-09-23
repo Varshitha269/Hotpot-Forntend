@@ -9,20 +9,35 @@ import { ReactiveformComponent } from './reactiveform/reactiveform.component';
 
 import { RestaurantCardsComponent } from './restaurantcards/restaurantcards.component';
 import { RestaruantsComponent } from './restaruants/restaruants.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
+import { CartitemsComponent } from './cartitems/cartitems.component';
 
 export const routes: Routes = [
     {
-        path:'app-restaurantcards',
+        path:'',
         component:RestaurantCardsComponent
     },
     {
-        path:'app-restaruants',
+        path:'app-restaruants/:name',
         component:RestaruantsComponent
+    },
+    {
+        path:'app-restruantpage/:rname',
+        component:RestruantpageComponent
     },
     
     {
         path:'app-reactiveform',
         component:ReactiveformComponent
+    },
+    {
+        path:'app-contact',
+        component:ContactComponent
+    },
+    {
+        path:'app-about',
+        component:AboutComponent
     },
     {
         path:'app-login',
@@ -43,9 +58,10 @@ export const routes: Routes = [
         component:FooterComponent
 
     },
-   
     {
-        path:'app-restruantpage',
-        component:RestruantpageComponent
+        path:'app-cartitems',
+        component:CartitemsComponent
     }
+   
+   
 ];
