@@ -1,13 +1,13 @@
 <!-- Category Carousel Section -->
 <div class="container mt-4">
   <h2>What's on your mind?</h2>
-  <div class="scroll-container">
+  <div class="scroll-container" >
     <div class="category-container d-flex">
-      <div *ngFor="let category of categories" (click)="naviagteToRestaruantFoods(category.name)" class="category-card mx-3 text-center">
+      <div *ngFor="let category of users" (click)="naviagteToRestaruantFoods(category.itemName)" class="category-card mx-3 text-center">
         
-          <img [src]="category.image" [alt]="category.name" class="category-img" />
+          <img [src]="category.imageUrl" [alt]="category.name" class="category-img" />
         
-        <p>{{ category.name }}</p>
+        <p>{{ category.itemName }}</p>
       </div>
     </div>
   </div>

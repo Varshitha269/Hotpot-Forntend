@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,6 +13,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./restaurantcards.component.css'] // Corrected to styleUrls
 })
 export class RestaurantCardsComponent {
+  users:any[] = [];
+    constructor(private http:HttpClient,private router: Router){
+      this.http.get('https://localhost:7121/api/MenuItem').subscribe((result:any)=>{ this.users=result; }); 
+     }
+     
+       
+    
   // Category data for carousel
   categories = [
     { name: 'Rolls', image: 'images/rolls.jpg' },
@@ -120,11 +128,7 @@ export class RestaurantCardsComponent {
       this.restaurants.sort((a, b) => b.cost - a.cost);
     }
   }
-  constructor(private router: Router)
-  {
-    
-
-  }
+ 
 
   naviagteToRestaruantFoods(categoryname:string)
   {

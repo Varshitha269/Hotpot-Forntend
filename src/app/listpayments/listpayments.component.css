@@ -1,0 +1,7 @@
+.table th, .table td {
+    text-align: center; /* Center align the table contents */
+}
+
+.pagination {
+    margin: 0;
+}

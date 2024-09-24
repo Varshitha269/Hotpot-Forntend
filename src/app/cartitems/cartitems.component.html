@@ -1,101 +1,83 @@
-<h1>Shopping Cart</h1>
+<h1 class="text-center mb-4">Shopping Cart</h1>
 
-<div *ngIf="isCartEmpty()" class="empty-cart">
-    <p>Your cart is empty.</p>
-</div>
-  
-<div *ngFor="let product of products" class="product">
-    <div class="product-details">
-      <span class="product-name">{{ product.name }}</span>
-      <span class="product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }}</span>
-      <input type="number" [(ngModel)]="product.quantity" (change)="updateQuantity(product, product.quantity)" />
-      <span class="product-line-price">{{ product.linePrice | currency:'INR':'symbol':'1.2-2' }}</span>
-      <button (click)="removeItem(product)">Remove</button>
-    </div>
-</div>
-  
-<div class="totals" *ngIf="!isCartEmpty()">
-    <div>Subtotal: {{ subtotal | currency:'INR':'symbol':'1.2-2' }}</div>
-    <div>Tax: {{ tax | currency:'INR':'symbol':'1.2-2' }}</div>
-    <div>Shipping: {{ shipping | currency:'INR':'symbol':'1.2-2' }}</div>
-    <div>Total: {{ total | currency:'INR':'symbol':'1.2-2' }}</div>
-    <button *ngIf="total > 0" class="checkout">Checkout</button>
+<!-- Empty Cart Message -->
+<div *ngIf="isCartEmpty()" class="alert alert-warning text-center" role="alert">
+    Your cart is empty.
 </div>
 
+<!-- Main Cart Section -->
+<div class="container">
+  <div class="row">
+    <!-- Product List Section -->
+    <div class="col-md-8">
+      <div class="row mb-3" *ngFor="let product of products">
+        <div class="col-12">
+          <div class="card p-3 shadow-sm">
+            <div class="row align-items-center">
+              <!-- Product Image -->
+              <div class="col-md-3 text-center">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 80px;" />
+              </div>
+              <!-- Product Name -->
+              <div class="col-md-3">
+                <h5 class="product-name">{{ product.name }}</h5>
+                <p class="text-muted">Product Code</p>
+              </div>
+              <!-- Quantity -->
+              <div class="col-md-2 text-center">
+                <div class="d-flex justify-content-center align-items-center">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="decrementQuantity(product)">-</button>
+                  <input class="form-control mx-2 text-center" type="number" [(ngModel)]="product.quantity" (change)="updateQuantity(product, product.quantity)" style="width: 50px;" />
+                  <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(product)">+</button>
+                </div>
+              </div>
+              <!-- Price -->
+              <div class="col-md-2 text-center">
+                <span class="product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }}</span>
+              </div>
+              <!-- Line Price -->
+              <div class="col-md-1 text-center">
+                <span class="product-line-price">{{ product.linePrice | currency:'INR':'symbol':'1.2-2' }}</span>
+              </div>
+              <!-- Remove Button -->
+              <div class="col-md-1 text-center">
+                <button class="btn btn-danger btn-sm btn-close" (click)="removeItem(product)" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Totals Section -->
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h4 class="mb-3">Order Summary</h4>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Subtotal</span>
+          <span>{{ subtotal | currency:'INR':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Tax ({{ taxRate * 100 }}%)</span>
+          <span>{{ tax | currency:'INR':'symbol':'1.2-2' }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Shipping</span>
+          <span>{{ shipping | currency:'INR':'symbol':'1.2-2' }}</span>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between mb-4">
+          <strong>Total</strong>
+          <strong>{{ total | currency:'INR':'symbol':'1.2-2' }}</strong>
+        </div>
+        <div class="text-center">
+          <button *ngIf="total > 0" class="btn btn-primary btn-lg">Proceed to Checkout</button>
+        </div>
+        <hr />
+        
+      </div>
+    </div>
+  </div>
+</div>
+
   
-  
-<!-- 
-
-<div class="shopping-cart">
-
-  <div class="column-labels">
-    <label class="product-image">Image</label>
-    <label class="product-details">Product</label>
-    <label class="product-price">Price</label>
-    <label class="product-quantity">Quantity</label>
-    <label class="product-removal">Remove</label>
-    <label class="product-line-price">Total</label>
-  </div>
-
-  <div class="product">
-    <div class="product-image">
-      <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Dingo Dog Bones</div>
-      <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-    </div>
-    <div class="product-price">12.99</div>
-    <div class="product-quantity">
-      <input type="number" value="2" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">25.98</div>
-  </div>
-
-  <div class="product">
-    <div class="product-image">
-      <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
-      <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
-    </div>
-    <div class="product-price">45.99</div>
-    <div class="product-quantity">
-      <input type="number" value="1" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">45.99</div>
-  </div>
-
-  <div class="totals">
-    <div class="totals-item">
-      <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">71.97</div>
-    </div>
-    <div class="totals-item">
-      <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
-    </div>
-    <div class="totals-item">
-      <label>Shipping</label>
-      <div class="totals-value" id="cart-shipping">15.00</div>
-    </div>
-    <div class="totals-item totals-item-total">
-      <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">90.57</div>
-    </div>
-  </div>
-      
-      <button class="checkout">Checkout</button>
-
-</div> -->

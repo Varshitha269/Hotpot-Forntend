@@ -1,0 +1,63 @@
+<div class="container mt-5">
+
+    <!-- Form Section with Increased Width -->
+    <div class="row">
+      <div class="col-md-10">  <!-- Increase column width to 10 for a larger form box -->
+        <div class="card form-container shadow">
+          <div class="card-body">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  
+              
+  
+              <div class="form-group">
+                <label for="addressLine">Address Line</label>
+                <input id="addressLine" formControlName="addressLine" class="form-control" required>
+                <div *ngIf="userForm.get('addressLine')?.invalid && userForm.get('addressLine')?.touched" class="text-danger">
+                  Address Line is required.
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="city">City</label>
+                <input id="city" formControlName="city" class="form-control" required>
+                <div *ngIf="userForm.get('city')?.invalid && userForm.get('city')?.touched" class="text-danger">
+                  City is required.
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="state">State</label>
+                <input id="state" formControlName="state" class="form-control" required>
+                <div *ngIf="userForm.get('state')?.invalid && userForm.get('state')?.touched" class="text-danger">
+                  State is required.
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="postalCode">Postal Code</label>
+                <input id="postalCode" formControlName="postalCode" class="form-control" required>
+                <div *ngIf="userForm.get('postalCode')?.invalid && userForm.get('postalCode')?.touched" class="text-danger">
+                  Postal Code is required and must be 6 digits.
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input id="country" formControlName="country" class="form-control" required>
+                <div *ngIf="userForm.get('country')?.invalid && userForm.get('country')?.touched" class="text-danger">
+                  Country is required.
+                </div>
+              </div>
+  
+              <!-- Centered Submit Button -->
+              <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+  
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,55 @@
+<div class="admin-container d-flex">
+  <div class="sidebar bg-dark text-white p-3" style="width: 250px;">
+    <h2 class="text-center"><i class="bi bi-person-circle"></i> My Account</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a (click)="displaySection('editProfile')" class="nav-link text-white">
+          <i class="bi bi-person-circle"></i> Edit Profile
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('orders')" class="nav-link text-white">
+          <i class="bi bi-cart"></i> Orders
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('editAddress')" class="nav-link text-white">
+          <i class="bi bi-geo-alt"></i> Edit Address
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('payments')" class="nav-link text-white">
+          <i class="bi bi-credit-card"></i> Payments
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link text-white">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content p-4">
+    
+    <div *ngIf="currentSection === 'editProfile'">
+      <h4>Edit Profile</h4>
+      <app-editprofile></app-editprofile>
+    </div>
+
+    <div *ngIf="currentSection === 'orders'">
+      <h4>Your Orders</h4>
+      <app-listorders></app-listorders>
+    </div>
+
+    <div *ngIf="currentSection === 'editAddress'">
+      <h4>Edit Address</h4>
+     <app-change-address></app-change-address>
+    </div>
+
+    <div *ngIf="currentSection === 'payments'">
+      <h4>Payment Methods</h4>
+      <app-listpayments></app-listpayments>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RestruantpageComponent } from './restruantpage/restruantpage.component';
 import { RestaurantCardsComponent } from './restaurantcards/restaurantcards.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

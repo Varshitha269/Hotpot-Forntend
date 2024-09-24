@@ -1,212 +1,63 @@
-<div class="custom-container">
-    <div class="card p-3 shadow-sm mb-4">
-        <div class="d-flex justify-content-between align-items-center">
+<div *ngIf="restarauntName" class="custom-container">
+    <div class="container">
+        <div class="card p-3 shadow-lg rounded mb-4 custom-card">
+          <div class="d-flex justify-content-between align-items-center">
             <!-- Restaurant Name -->
             <div>
-                <h4 class="card-title mb-1">{{restarauntName}}</h4>
+              <h4 class="card-title mb-1">{{ restarauntName }}</h4>
             </div>
-        </div>
-        
-        <div class="d-flex justify-content-start align-items-center">
+          </div>
+      
+          <div class="d-flex justify-content-start align-items-center">
             <!-- Rating -->
             <div class="badge bg-success text-white me-3">
-                <i class="bi bi-star-fill"></i> 4.5 (9.5K+ ratings)
+              <i class="bi bi-star-fill"></i> {{ rating }} ({{ ratingsCount }}+ ratings)
             </div>
             <!-- Price for Two -->
-            <span>₹150 for two</span>
+            <span>₹{{ priceForTwo }} for two</span>
+          </div>
+      
+          <!-- Cuisines and Outlet Details -->
+          <div class="mt-2">
+            <a *ngFor="let cuisine of cuisines" href="#" class="text-danger me-2">{{ cuisine }}</a>
+          </div>
+      
+          <!-- Location and Delivery Time -->
+          <div class="mt-3">
+            <small class="text-muted d-block">Outlet: {{ outletLocation }}</small>
+            <small class="text-muted d-block">{{ deliveryTime }} mins</small>
+          </div>
         </div>
-        
-        <!-- Cuisines and Outlet Details -->
-        <div class="mt-2">
-            <a href="#" class="text-danger me-2">Beverages</a>
-            <a href="#" class="text-danger">South Indian</a>
-        </div>
-        
-        <!-- Location and Delivery Time -->
-        <div class="mt-3">
-            <small class="text-muted d-block">Outlet: Himayath Nagar</small>
-            <small class="text-muted d-block">25-30 mins</small>
-        </div>
-    </div>
+      </div>
+      
 
     <!-- Accordion for menu categories -->
     <div class="accordion menu-accordion" id="menuAccordion">
-
-        <!-- Tiffins -->
-        <div class="accordion-item menu-category">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Tiffins (22)
+        <div *ngFor="let category of menuCategories" class="accordion-item menu-category">
+            <h2 class="accordion-header" [id]="'heading' + category.id">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + category.id" aria-expanded="false" [attr.aria-controls]="'collapse' + category.id">
+                    {{ category.name }} ({{ category.items.length }})
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#menuAccordion">
+            <div [id]="'collapse' + category.id" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + category.id" data-bs-parent="#menuAccordion">
                 <div class="accordion-body">
-                    <!-- Tiffins items here -->
-                    <div class="menu-item">
+                    <div *ngFor="let item of category.items" class="menu-item">
                         <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Masala Dosa</h5>
-                            <div class="price">₹93</div>
+                            <span *ngIf="item.isBestseller" class="bestseller">★ Bestseller</span>
+                            <h5>{{ item.name }}</h5>
+                            <div class="price">₹{{ item.price }}</div>
                             <div class="rating">
-                                <i class="fas fa-star"></i> 4.4 (1338)
+                                <i class="fas fa-star"></i> {{ item.rating }} ({{ item.ratingsCount }})
                             </div>
-                            <p>Serves 1 | A flavorful and savory Indian breakfast staple.</p>
+                            <p>{{ item.description }}</p>
                         </div>
                         <div class="menu-item-img">
-                            <img src="favicon.ico" alt="Masala Dosa">
-                            <button class="add-btn" >ADD</button>
+                            <img [src]="item.image" [alt]="item.name">
+                            <button class="add-btn" (click)="addItemToCart(item)">ADD</button>
                         </div>
-                    </div>
-
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Masala Dosa</h5>
-                            <div class="price">₹93</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.4 (1338)
-                            </div>
-                            <p>Serves 1 | A flavorful and savory Indian breakfast staple.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="favicon.ico" alt="Masala Dosa">
-                            <button class="add-btn">ADD</button>
-                        </div>
-                    </div>
-
-            </div>
-        </div>
-
-        <!-- Dosa's -->
-        <div class="accordion-item menu-category">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Dosa's (11)
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#menuAccordion">
-                <div class="accordion-body">
-                    <!-- Dosa's items here -->
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Masala Dosa</h5>
-                            <div class="price">₹93</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.4 (1338)
-                            </div>
-                            <p>Serves 1 | A flavorful and savory Indian breakfast staple.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Masala Dosa">
-                        </div>
-                        <button class="add-btn">ADD</button>
-                    </div>
-
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Plain Dosa</h5>
-                            <div class="price">₹74</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.6 (629)
-                            </div>
-                            <p>Serves 1 | Crispy golden brown goodness served hot off the griddle.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Plain Dosa">
-                        </div>
-                        <button class="add-btn">ADD</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Special Dosa's -->
-        <div class="accordion-item menu-category">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Special Dosa's (16)
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#menuAccordion">
-                <div class="accordion-body">
-                    <!-- Special Dosa's items here -->
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Paneer Dosa</h5>
-                            <div class="price">₹110</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.7 (820)
-                            </div>
-                            <p>Serves 1 | A dosa stuffed with seasoned paneer and spices.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Paneer Dosa">
-                        </div>
-                        <button class="add-btn">ADD</button>
-                    </div>
-
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Cheese Dosa</h5>
-                            <div class="price">₹120</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.8 (900)
-                            </div>
-                            <p>Serves 1 | Crispy dosa loaded with melted cheese.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Cheese Dosa">
-                        </div>
-                        <button class="add-btn">ADD</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Juices & Beverages -->
-        <div class="accordion-item menu-category">
-            <h2 class="accordion-header" id="headingFour">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                    Juices & Beverages (10)
-                </button>
-            </h2>
-            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#menuAccordion">
-                <div class="accordion-body">
-                    <!-- Juices & Beverages items here -->
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <span class="bestseller">★ Bestseller</span>
-                            <h5>Mango Juice</h5>
-                            <div class="price">₹50</div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i> 4.7 (500)
-                            </div>
-                            <p>Refreshing mango juice served chilled.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Mango Juice">
-                        </div>
-                        <button class="add-btn">ADD</button>
-                    </div>
-
-                    <div class="menu-item">
-                        <div class="menu-item-details">
-                            <h5>Lemonade</h5>
-                            <div class="price">₹40</div>
-                            <p>Fresh lemonade with a hint of mint.</p>
-                        </div>
-                        <div class="menu-item-img">
-                            <img src="https://via.placeholder.com/100" alt="Lemonade">
-                        </div>
-                        <button class="add-btn">ADD</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
-    
+</div>
