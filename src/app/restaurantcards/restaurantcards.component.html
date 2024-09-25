@@ -3,7 +3,7 @@
   <h2>What's on your mind?</h2>
   <div class="scroll-container" >
     <div class="category-container d-flex">
-      <div *ngFor="let category of users" (click)="naviagteToRestaruantFoods(category.itemName)" class="category-card mx-3 text-center">
+      <div *ngFor="let category of menuitems" (click)="naviagteToRestaruantFoods(category.itemName)" class="category-card mx-3 text-center">
         
           <img [src]="category.imageUrl" [alt]="category.name" class="category-img" />
         

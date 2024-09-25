@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PaymentService } from '../service/payment.service';
 
 @Component({
   selector: 'app-listpayments',
@@ -11,14 +12,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class ListpaymentsComponent {
    // Assume this gets populated with payment data from a service
-   payments = [
-    { id: 1, orderId: 1, amount: 500, paymentDate: new Date(), method: 'Credit Card', status: 'Completed' },
-    { id: 2, orderId: 2, amount: 300, paymentDate: new Date(), method: 'PayPal', status: 'Pending' },
-    { id: 3, orderId: 1, amount: 500, paymentDate: new Date(), method: 'Debit Card', status: 'Completed' },
-    { id: 4, orderId: 3, amount: 450, paymentDate: new Date(), method: 'Net Banking', status: 'Failed' },
-    { id: 5, orderId: 4, amount: 600, paymentDate: new Date(), method: 'Credit Card', status: 'Completed' },
-    // Add more payments as needed
-  ];
+
+
+   payments:any[]=[];
+   constructor(private paymentservice:PaymentService){
+    this.paymentservice.fetchPaymentDetails().subscribe((payments)=>{
+      this.payments=payments;
+
+    });
+   }
+
+
   
   currentPage: number = 1;
   itemsPerPage: number = 10;

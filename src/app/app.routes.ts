@@ -18,6 +18,12 @@ import { EditprofileComponent } from './editprofile/editprofile.component';
 import { ListordersComponent } from './listorders/listorders.component';
 import { ListpaymentsComponent } from './listpayments/listpayments.component';
 import { ChangeAddressComponent } from './change-address/change-address.component';
+import { RestraruantDashboardComponent } from './restraruant-dashboard/restraruant-dashboard.component';
+import { EditrestaruantaddressComponent } from './editrestaruantaddress/editrestaruantaddress.component';
+import { RestaruantprofileComponent } from './restaruantprofile/restaruantprofile.component';
+import { RratingsComponent } from './rratings/rratings.component';
+import { ListrordersComponent } from './listrorders/listrorders.component';
+import { OngoingordersComponent } from './ongoingorders/ongoingorders.component';
 
 export const routes: Routes = [
     {
@@ -88,6 +94,30 @@ export const routes: Routes = [
     {
         path:'app-change-address',
         component:ChangeAddressComponent
+    },
+    {
+        path:'app-restraruant-dashboard',
+        component:RestraruantDashboardComponent
+    },
+    {
+        path:'app-editrestaruantaddress',
+        component:EditrestaruantaddressComponent
+    },
+    {
+        path:'app-restaruantprofile',
+        component:RestaruantprofileComponent
+    },
+    {
+        path:'app-rratings',
+        component:RratingsComponent
+    },
+    {
+        path:'app-listrorders',
+        component:ListrordersComponent
+    },
+    {
+        path:'app-ongoingorders',
+        component:OngoingordersComponent
     }
    
 ];

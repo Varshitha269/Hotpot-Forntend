@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MenuitemsService } from '../service/menuitems.service';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -13,29 +14,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./restaurantcards.component.css'] // Corrected to styleUrls
 })
 export class RestaurantCardsComponent {
-  users:any[] = [];
-    constructor(private http:HttpClient,private router: Router){
-      this.http.get('https://localhost:7121/api/MenuItem').subscribe((result:any)=>{ this.users=result; }); 
+  menuitems:any[]=[]
+    constructor(private menuitemservice:MenuitemsService,private router: Router){
+      this.menuitemservice.fetchMenuItems().subscribe((menuitems)=>{
+        this.menuitems=menuitems;
+
+      });
      }
      
        
     
-  // Category data for carousel
-  categories = [
-    { name: 'Rolls', image: 'images/rolls.jpg' },
-    { name: 'Cakes', image: 'images/cakes.jpg' },
-    { name: 'Momos', image: 'images/momos.jpg' },
-    { name: 'Noodles', image: 'images/noodels.jpg' },
-    { name: 'South Indian', image: 'images/southindian.jpg' },
-    { name: 'Shake', image: 'images/shakes.jpg' },
-    { name: 'Biriyani', image: 'images/biriyani.jpg' },
-    { name: 'Idli', image: 'images/idli.jpg' },
-    { name: 'Dosa', image: 'images/dosa.jpg' },
-    { name: 'Pizza', image: 'images/pizza.jpg' },
-    { name: 'Burger', image: 'images/burger.jpg' },
-    { name: 'Ice Cream', image: 'images/icecream.jpg' },
-    { name: 'Pastry', image: 'images/pastry.jpg' }
-  ];
+  
 
   // Popular restaurants data with additional fields
   // List of restaurants

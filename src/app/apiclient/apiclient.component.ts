@@ -1,16 +1,23 @@
 
 
-import { Component } from '@angular/core';
- import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AssetService } from '../service/asset.service';
 @Component({ selector: 'app-apiclient',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './apiclient.component.html',
   styleUrl: './apiclient.component.css'
-}) export class ApiclientComponent {
-   users:any[] = [];
-    constructor(private http:HttpClient){ }
-     FetchUserData(){
-       this.http.get('https://localhost:7121/api/MenuItem').subscribe((result:any)=>{ this.users=result; }); 
-    } 
+})
+ export class ApiclientComponent implements OnInit{
+  assets:any[]=[];
+  constructor(private assetservice:AssetService){}
+  ngOnInit(): void {
+    this.assets=this.assetservice.getAssets();
+  }
+
+
+
+
+  
   }

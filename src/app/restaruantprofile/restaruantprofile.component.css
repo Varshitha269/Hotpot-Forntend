@@ -1,0 +1,212 @@
+/* Stepper Styling */
+.stepper-horizontal {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .stepper-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ddd;
+    z-index: 0;
+  }
+  
+  .step {
+    position: relative;
+    text-align: center;
+    flex: 1;
+    z-index: 1;
+  }
+  
+  .step .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: inline-block;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #777;
+  }
+  
+  .step.active .circle {
+    background-color: #d65576;
+    color: white;
+  }
+  
+  .step .label {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #777;
+  }
+  
+  .step.active .label {
+    color: #d65576;
+  }
+  
+  /* Form Styling */
+  .form-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More prominent box shadow */
+    height: auto; /* Ensures full-height container */
+  }
+  
+  .form-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-container .form-control {
+    border-radius: 5px;
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  .container-fluid {
+    width: 100%; /* Full width container */
+    padding: 0 20px; /* Ensures form doesn't touch screen edges */
+  }
+  
+  body {
+    overflow-x: hidden; /* Remove horizontal scrolling */
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  /* Stepper Styling */
+.stepper-horizontal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.stepper-horizontal::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #ddd;
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  text-align: center;
+  flex: 1;
+  z-index: 1;
+}
+
+.step .circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: inline-block;
+  line-height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #777;
+}
+
+.step.active .circle {
+  background-color: #d65576;  /* Changed color */
+  color: white;
+}
+
+.step .label {
+  display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #777;
+}
+
+.step.active .label {
+  color: #d65576;  /* Changed color */
+}
+
+/* Form Styling */
+.form-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More prominent box shadow */
+  height: auto; /* Ensures full-height container */
+}
+
+.form-container .form-group {
+  margin-bottom: 15px;
+}
+
+.form-container .form-control {
+  border-radius: 5px;
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.container-fluid {
+  width: 100%; /* Full width container */
+  padding: 0 20px; /* Ensures form doesn't touch screen edges */
+}
+
+body {
+  overflow-x: hidden; /* Remove horizontal scrolling */
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Button Styling */
+.btn-primary, .btn-success {
+  background-color: #d65576;  /* Changed button color */
+  border-color: #d65576;  /* Changed border color */
+}
+
+.btn-primary:hover, .btn-success:hover {
+  background-color: #c24466;  /* Darker shade for hover */
+  border-color: #c24466;  /* Darker shade for hover */
+}
+
+.btn-secondary {
+  background-color: #ddd;  /* Keeping the default secondary color */
+  border-color: #ddd;  /* Keeping the default border color */
+}
+
+.btn-secondary:hover {
+  background-color: #bbb;  /* Darker shade for hover */
+}
+
+  

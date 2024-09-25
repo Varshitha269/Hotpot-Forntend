@@ -1,7 +1,6 @@
-<p>apiclient works!</p>
- <div> <button (click)="FetchUserData()">Fetch Users</button> 
-</div>
- <div> @for(item of users;track $index){
-     {{item.itemName}}<p></p>
-     } 
-    </div>
+<h1>Asset management</h1>
+<ul>
+    <li *ngFor="let eachasset of assets">
+        <p>{{eachasset.name}} - {{eachasset.price}}</p>
+    </li>
+</ul>

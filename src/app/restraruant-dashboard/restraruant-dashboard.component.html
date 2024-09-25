@@ -1,1 +1,94 @@
-<p>restraruant-dashboard works!</p>
+<div class="restaurant-container d-flex">
+  <div class="sidebar bg-blue text-white p-3" style="width: 250px; max-height: 100vh; overflow-y: auto;">
+    <h2 class="text-center"><i class="bi bi-shop"></i> Restaurant</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a (click)="displaySection('reports')" class="nav-link text-white">
+          <i class="bi bi-graph-up"></i> Reports
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('menuManagement')" class="nav-link text-white">
+          <i class="bi bi-card-list"></i> Menu Management
+        </a>
+      </li>
+
+      <!-- Order Management Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" id="orderManagementDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-receipt"></i> Order Management
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="orderManagementDropdown">
+          <li><a class="dropdown-item" (click)="displaySection('currentOrders')">Current Orders</a></li>
+          <li><a class="dropdown-item" (click)="displaySection('orderHistory')">Order History</a></li>
+        </ul>
+      </li>
+
+      <!-- Profile Section -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-white" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle"></i> Profile
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" (click)="displaySection('editRestaurantInfo')">Edit Restaurant Info</a></li>
+          <li><a class="dropdown-item" (click)="displaySection('editAddress')">Edit Address</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a (click)="displaySection('ratings')" class="nav-link text-white">
+          <i class="bi bi-star"></i> Ratings
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link text-white">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="content p-4">
+    <!-- Reports Section -->
+    <div *ngIf="currentSection === 'reports'">
+      <h4>Reports</h4>
+      <!-- Add your Reports content here -->
+    </div>
+
+    <!-- Menu Management Section -->
+    <div *ngIf="currentSection === 'menuManagement'">
+      <h4>Menu Management</h4>
+      <!-- Add your Menu Management content here -->
+    </div>
+
+    <!-- Order Management Section -->
+    <div *ngIf="currentSection === 'currentOrders'">
+      <h4>Current Orders</h4>
+      <app-ongoingorders></app-ongoingorders>
+      
+    </div>
+
+    <div *ngIf="currentSection === 'orderHistory'">
+      <h4>Order History</h4>
+      <app-listrorders></app-listrorders>
+     
+    </div>
+
+    <!-- Profile Sections -->
+    <div *ngIf="currentSection === 'editRestaurantInfo'">
+      <h4>Edit Restaurant Info</h4>
+      <app-restaruantprofile></app-restaruantprofile>
+    </div>
+
+    <div *ngIf="currentSection === 'editAddress'">
+      <h4>Edit Address</h4>
+      <app-editrestaruantaddress></app-editrestaruantaddress>
+    </div>
+
+    <!-- Ratings Section -->
+    <div *ngIf="currentSection === 'ratings'">
+      <h4>Ratings</h4>
+      <app-rratings></app-rratings>
+    </div>
+  </div>
+</div>

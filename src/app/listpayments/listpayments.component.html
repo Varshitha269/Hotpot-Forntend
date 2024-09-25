@@ -15,12 +15,12 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let payment of paginatedPayments"> <!-- Updated to use paginatedPayments -->
-                        <td>{{ payment.id }}</td>
-                        <td>{{ payment.orderId }}</td>
-                        <td>{{ payment.amount | currency:'INR':'symbol':'1.2-2' }}</td>
-                        <td>{{ payment.paymentDate | date:'shortDate' }}</td>
-                        <td>{{ payment.method }}</td>
-                        <td>{{ payment.status }}</td>
+                        <td>{{ payment.paymentID }}</td>
+                        <td>{{ payment.orderID }}</td>
+                        <td>{{ payment.amountPaid | currency:'INR':'symbol':'1.2-2' }}</td>
+                        <td>{{ payment.transactionDate | date:'shortDate' }}</td>
+                        <td>{{ payment.paymentMethod }}</td>
+                        <td>{{ payment.transactionStatus }}</td>
                     </tr>
                 </tbody>
             </table>

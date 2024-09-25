@@ -1,0 +1,26 @@
+/* Common styles for the card */
+.card {
+  transition: transform 0.3s;
+}
+
+/* Hover effects based on ratings */
+.card.green:hover {
+  background-color: #28a745; /* Green for ratings > 4 */
+}
+
+.card.yellow:hover {
+  background-color: #ffc107; /* Yellow for rating = 3 */
+}
+
+.card.red:hover {
+  background-color: #dc3545; /* Red for ratings < 3 */
+}
+
+/* Optional: Slight zoom effect on hover */
+.card:hover {
+  transform: scale(1.05);
+}
+.aggregate-rating {
+  color: #ef7c9b; /* Set the aggregate rating color */
+  margin-bottom: 20px; /* Add some space below the aggregate rating */
+}

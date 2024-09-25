@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h5 class="aggregate-rating" [style.color]="'#ef7c9b'">Over Rating: {{ aggregateRating }} / 5</h5>
+  <div class="row">
+    <div *ngFor="let rating of ratings; let i = index" class="col-md-4 mb-4">
+      <div class="card h-100"
+           [ngClass]="{
+             'green': rating.stars >= 4,
+             'yellow': rating.stars === 3,
+             'red': rating.stars < 3
+           }">
+        <div class="card-body">
+          <h5 class="card-title">{{ rating.userName }}</h5>
+          <p class="card-text">
+            <strong>Rating: </strong>
+            <!-- Display stars based on the rating -->
+            <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+              <i class="bi" [ngClass]="i < rating.stars ? 'bi-star-fill text-warning' : 'bi-star'"></i>
+            </ng-container>
+          </p>
+          <p class="card-text">
+            Menu Item: <em>{{ rating.menuItem }}</em>
+          </p>
+          <p class="card-text">
+            <strong>Comment: </strong>{{ rating.comment }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

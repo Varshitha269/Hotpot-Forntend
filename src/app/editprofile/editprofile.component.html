@@ -1,6 +1,5 @@
 <div class="container mt-5">
   
-  
   <!-- Stepper Section -->
   <div class="row">
     <div class="col-12">
@@ -26,7 +25,7 @@
     <div class="col-md-10">  <!-- Increase column width to 10 for a larger form box -->
       <div class="card form-container shadow">
         <div class="card-body">
-          <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="userForm" (ngSubmit)="Adduserdetails()">
             
             <!-- Step 1: User Information -->
             <div *ngIf="currentStep === 1">
@@ -42,7 +41,7 @@
                 <label for="password">Password</label>
                 <input id="password" type="password" formControlName="password" class="form-control" required>
               </div>
-              <button class="btn btn-primary" (click)="nextStep()">Next</button>
+              <button type="button" class="btn btn-primary" (click)="nextStep()">Next</button> <!-- Changed type to button -->
             </div>
 
             <!-- Step 2: Address -->
@@ -67,8 +66,8 @@
                 <label for="country">Country</label>
                 <input id="country" formControlName="country" class="form-control" required>
               </div>
-              <button class="btn btn-secondary" (click)="prevStep()">Back</button>
-              <button class="btn btn-primary" (click)="nextStep()">Next</button>
+              <button type="button" class="btn btn-secondary" (click)="prevStep()">Back</button> <!-- Changed type to button -->
+              <button type="button" class="btn btn-primary" (click)="nextStep()">Next</button> <!-- Changed type to button -->
             </div>
 
             <!-- Step 3: Confirmation -->
@@ -77,8 +76,8 @@
               <p><strong>Username:</strong> {{ userForm.get('username')?.value }}</p>
               <p><strong>Email:</strong> {{ userForm.get('email')?.value }}</p>
               <p><strong>Address:</strong> {{ userForm.get('addressLine')?.value }}, {{ userForm.get('city')?.value }}, {{ userForm.get('state')?.value }}</p>
-              <button class="btn btn-secondary" (click)="prevStep()">Back</button>
-              <button type="submit" class="btn btn-success">Submit</button>
+              <button type="button" class="btn btn-secondary" (click)="prevStep()">Back</button> <!-- Changed type to button -->
+              <button type="submit" class="btn btn-success">Submit</button> <!-- Keep this as submit -->
             </div>
 
           </form>
