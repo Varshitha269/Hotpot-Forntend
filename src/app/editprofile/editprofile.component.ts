@@ -18,10 +18,11 @@ import { UserService } from '../service/user.service';
 export class EditprofileComponent implements OnInit {
   userForm: FormGroup;
   currentStep: number = 1;
+  userid:number=1040;
 
   constructor(private fb: FormBuilder,private userService: UserService) {
     this.userForm = this.fb.group({
-      // userID:[1028],
+      userID:[1028],
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       phNo:[''],
@@ -31,6 +32,7 @@ export class EditprofileComponent implements OnInit {
       state: ['', Validators.required],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       country: ['', Validators.required],
+      createdDate:[new Date()],
       role:['user'],
       isActive:[true]
       
@@ -62,6 +64,12 @@ export class EditprofileComponent implements OnInit {
   updateuserdetails(){
 
     const userdata=this.userForm.value;
+
+  if (!userdata.userID || userdata.userID <= 0) {
+    console.error('Invalid UserID:', userdata.userID);
+    alert('Please provide a valid User ID before updating.');
+    return;
+  }
     this.userService.updateUserDetails(userdata).subscribe(
       response=>{
         console.log('User details updated successfully:', response);
@@ -70,8 +78,36 @@ export class EditprofileComponent implements OnInit {
        
         this.userForm.reset();
 
+      },
+      (error) => {
+        // Error callback
+        console.error('Error Updating user details:', error);
+        alert('An error occurred while updating user details. Please try again.');
+        this.userForm.reset();
       });
   }
+  deleteuserdetails()
+      {
+        this.userService.deleteUserDetails(this.userid).subscribe(
+          response=>{
+            console.log('User details deleted successfully:', response);
+            
+            alert('User details deleted successfully!');
+           
+            this.userForm.reset();
+    
+          },
+          (error) => {
+            // Error callback
+            console.error('Error deleted user details:', error);
+            alert('An error occurred while deleted user details. Please try again.');
+            
+          }
+
+        );
+       
+
+      }
   ngOnInit(): void {}
 
   nextStep(): void {

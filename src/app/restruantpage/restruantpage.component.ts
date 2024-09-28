@@ -1,98 +1,98 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CombinedData, MenuItem, Category } from '../model/datastructure';
+import { RestaurantService } from '../service/restaurant.service';
 
 @Component({
   selector: 'app-restruantpage',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './restruantpage.component.html',
-  styleUrl: './restruantpage.component.css'
+  styleUrls: ['./restruantpage.component.css']
 })
-export class RestruantpageComponent {
+export class RestruantpageComponent implements OnInit {
+  restaurantId!: number;
+  combinedData: CombinedData | null = null; 
+  categories: Category[] = []; 
 
-  
-  restarauntName: string = '';
-  rating: number = 0;
-  ratingsCount: string = '';
-  priceForTwo: number = 0;
-  cuisines: string[] = [];
-  outletLocation: string = '';
-  deliveryTime: number = 0;
+  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService) {}
 
-  // Mock Data for Menu Categories and Items
-  menuCategories = [
-    {
-      id: 1,
-      name: 'Tiffins',
-      items: [
-        {
-          name: 'Masala Dosa',
-          price: 93,
-          rating: 4.4,
-          ratingsCount: 1338,
-          description: 'A flavorful and savory Indian breakfast staple.',
-          isBestseller: true,
-          image: 'images/southindian.jpg'
-        },
-        {
-          name: 'Plain Dosa',
-          price: 74,
-          rating: 4.6,
-          ratingsCount: 629,
-          description: 'Crispy golden brown goodness served hot off the griddle.',
-          isBestseller: false,
-          image: 'images/biriyani.jpg'
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+        const restaurantId = params.get('id'); // Get ID from route parameters
+        if (restaurantId) {
+            const id = +restaurantId; // Convert to a number
+            if (!isNaN(id)) {
+                this.fetchCombinedData(id); // Make API call with valid ID
+            } else {
+                console.error('Invalid restaurant ID:', restaurantId);
+            }
+        } else {
+            console.error('No restaurant ID found in route parameters.');
         }
-      ]
-    },
-    {
-      id: 2,
-      name: 'Dosa\'s',
-      items: [
-        {
-          name: 'Paneer Dosa',
-          price: 110,
-          rating: 4.7,
-          ratingsCount: 820,
-          description: 'A dosa stuffed with seasoned paneer and spices.',
-          isBestseller: true,
-          image: 'images/pizza.jpg'
-        },
-        {
-          name: 'Cheese Dosa',
-          price: 120,
-          rating: 4.8,
-          ratingsCount: 900,
-          description: 'Crispy dosa loaded with melted cheese.',
-          isBestseller: true,
-          image: 'images/icecream.jpg'
-        }
-      ]
-    }
-  ];
-
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.params.subscribe((res: any) => {
-      this.restarauntName = res.rname;
-      this.loadRestaurantData();
     });
+}
+
+fetchCombinedData(restaurantId: number) {
+    this.restaurantService.getCombinedData1(restaurantId).subscribe(
+        data => {
+            console.log('Combined data:', data);
+            this.combinedData = data;
+        },
+        error => {
+            console.error('Error fetching combined data:', error);
+        }
+    );
+}
+
+  calculateAverageRating(): number {
+    if (!this.combinedData || this.combinedData.ratings.length === 0) return 0;
+    const totalRating = this.combinedData.ratings.reduce((sum, rating) => sum + rating.rating, 0);
+    return parseFloat((totalRating / this.combinedData.ratings.length).toFixed());
   }
 
-  // Function to load restaurant data
-  loadRestaurantData() {
-    this.rating = 4.5;
-    this.ratingsCount = '9.5K';
-    this.priceForTwo = 150;
-    this.cuisines = ['Beverages', 'South Indian'];
-    this.outletLocation = 'Himayath Nagar';
-    this.deliveryTime = 25;
+  getTotalRatingsCount(): number {
+    return this.combinedData?.ratings.length || 0; // Returns the count of ratings or 0 if not available
   }
 
-  // Add item to cart function
-  addItemToCart(item: any) {
+  calculatePriceForTwo(): number {
+    return 2 * 100; // Replace with actual logic
+  }
+
+  calculateDeliveryTime(): number {
+    return 25; // Replace with actual logic
+  }
+
+  getMenuCategories(): Category[] {
+    if (!this.combinedData || !this.combinedData.menuItems) return [];
+    const categoriesMap: { [key: string]: Category } = {};
+    let categoryIdCounter = 1;
+
+    this.combinedData.menuItems.forEach(item => {
+        const categoryName = item.category;
+        if (!categoriesMap[categoryName]) {
+            categoriesMap[categoryName] = { id: categoryIdCounter++, name: categoryName, items: [] };
+        }
+        categoriesMap[categoryName].items.push(item);
+    });
+
+    return Object.values(categoriesMap);
+}
+
+  calculateItemRating(item: MenuItem): number {
+    const ratingsForItem = this.combinedData?.ratings.filter(r => r.restaurantID === item.menuID) || [];
+    if (ratingsForItem.length === 0) return 0;
+    const totalItemRating = ratingsForItem.reduce((sum, rating) => sum + rating.rating, 0);
+    return parseFloat((totalItemRating / ratingsForItem.length).toFixed(1));
+  }
+
+  getItemRatingsCount(item: MenuItem): number {
+    return (this.combinedData?.ratings.filter(r => r.restaurantID === item.menuID).length) || 0;
+  }
+
+  addItemToCart(item: MenuItem): void {
     console.log('Item added to cart:', item);
   }
-
 }

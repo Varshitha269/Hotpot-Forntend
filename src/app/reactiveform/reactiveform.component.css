@@ -1,0 +1,26 @@
+.card {
+    border-radius: 8px;
+  }
+  
+  h5.card-title {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 6px;
+  }
+  
+  .btn-warning {
+    background-color: #FF5722;
+    border: none;
+  }
+  
+  .btn-warning:hover {
+    background-color: #FF7043;
+  }
+  
+  .text-danger {
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+  

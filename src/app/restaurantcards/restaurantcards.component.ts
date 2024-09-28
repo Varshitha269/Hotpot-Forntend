@@ -30,78 +30,78 @@ export class RestaurantCardsComponent {
   // List of restaurants
   restaurants = [
     {
-      name: "La Pino'z Pizza",
-      cuisine: "Italian, Pizzas, Fast Food, Mexican, Desserts, Beverages",
-      rating: 3.8,
-      deliveryTime: 42,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/biriyani.jpg"
+        id: 1,
+        name: "La Pino'z Pizza",
+        cuisine: "Italian, Pizzas, Fast Food, Mexican, Desserts, Beverages",
+        rating: 3.8,
+        deliveryTime: 42,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/biriyani.jpg"
     },
     {
-      name: "Bercos - If you love Chinese",
-      cuisine: "Chinese, Thai, Asian, Beverages, Desserts",
-      rating: 4.0,
-      deliveryTime: 33,
-      cost: 500,
-      offer: "50% off | Use WELCOME50",
-      image: "images/burger.jpg"
+        id: 1,
+        name: "Bercos - If you love Chinese",
+        cuisine: "Chinese, Thai, Asian, Beverages, Desserts",
+        rating: 4.0,
+        deliveryTime: 33,
+        cost: 500,
+        offer: "50% off | Use WELCOME50",
+        image: "images/burger.jpg"
     },
     {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
+        id: 1,
+        name: "Wack Waffles & Brownies",
+        cuisine: "Waffle, Bakery, Desserts, Beverages",
+        rating: 3.9,
+        deliveryTime: 34,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/southindian.jpg"
     },
     {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
+        id: 1,
+        name: "Wack Waffles & Brownies",
+        cuisine: "Waffle, Bakery, Desserts, Beverages",
+        rating: 3.9,
+        deliveryTime: 34,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/southindian.jpg"
     },
     {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
+        id: 1,
+        name: "Wack Waffles & Brownies",
+        cuisine: "Waffle, Bakery, Desserts, Beverages",
+        rating: 3.9,
+        deliveryTime: 34,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/southindian.jpg"
     },
     {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
-    }, {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
+        id: 1,
+        name: "Wack Waffles & Brownies",
+        cuisine: "Waffle, Bakery, Desserts, Beverages",
+        rating: 3.9,
+        deliveryTime: 34,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/southindian.jpg"
     },
     {
-      name: "Wack Waffles & Brownies",
-      cuisine: "Waffle, Bakery, Desserts, Beverages",
-      rating: 3.9,
-      deliveryTime: 34,
-      cost: 250,
-      offer: "50% off | Use WELCOME50",
-      image: "images/southindian.jpg"
+        id: 1,
+        name: "Wack Waffles & Brownies",
+        cuisine: "Waffle, Bakery, Desserts, Beverages",
+        rating: 3.9,
+        deliveryTime: 34,
+        cost: 250,
+        offer: "50% off | Use WELCOME50",
+        image: "images/southindian.jpg"
     }
     // Add more restaurants here
-  ];
+];
+
 
   // Sort the restaurant list based on filters
   sort(type: string) {
@@ -124,8 +124,8 @@ export class RestaurantCardsComponent {
     this.router.navigate(['app-restaruants',categoryname])
 
   }
-  naviagteToRestaruantmenu(restaurantname:string)
+  naviagteToRestaruantmenu(id:number)
   {
-    this.router.navigate(['app-restruantpage',restaurantname])
+    this.router.navigate(['app-restruantpage',id])
   }
 }

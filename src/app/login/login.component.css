@@ -1,157 +1,25 @@
-/* Background overlay for blurring */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    backdrop-filter: blur(5px); /* Add blur effect */
-    z-index: 999; /* Make sure it's above everything */
-  }
-  
-  /* Login modal */
-  .login-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 500px; /* Expanded width */
-    height: 100%;
-    background: white;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Make sure it's above the overlay */
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  }
-  
-  /* Login container content */
-  .login-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-  }
-  
-  /* Close button */
-  .close-btn {
-    font-size: 24px;
-    color: #000;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-  }
-  
-  .login-container h3 {
-    margin-bottom: 10px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  /* Login button style matching the design */
-  .login-btn {
-    background-color: #fc6011; /* Orange color matching the image */
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .login-btn:hover {
-    background-color: #e5550b; /* Darker shade on hover */
-  }
-  
-  /* Terms and conditions */
-  .terms {
-    font-size: 12px;
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  
-  .login-page {
-    height: 100vh;
-    width: 100%;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .form {
-  position: relative;
-  filter:drop-shadow(0 0 2px #000000);
-  border-radius: 5px;
-  width: 360px;
-  height: 420px;
-  background-color: #ffffff;
-  padding:40px;
-  }
-  
-  .form img {
-    position: absolute;
-    height: 20px;
-    top: 230px;
-    right: 60px;
-    cursor: pointer;
-  }
-  
-  .form input {
-    outline: 0;
-    background: #f2f2f2;
-    border-radius: 4px;
-    width: 100%;
-    border: 0;
-    margin: 15px 0;
-    padding: 15px;
-    font-size: 14px;
-  }
-  
-  .form input:focus {
-    box-shadow: 0 0 5px 0 rgba(106, 98, 210);
-  }
-  
-  span {
-    color: red;
-    margin: 10px 0;
-    font-size: 14px;
-  }
-  
-  .form button {
-    outline: 0;
-    background: #6a62d2;
-    width: 100%;
-    border: 0;
-    margin-top: 10px;
-    border-radius: 3px;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 15px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-  }
-  
-  .form button:hover,
-  .form button:active,
-  .form button:focus {
-    background: black;
-    color: #fff;
-  
-  }
-  
-  .message{
-    margin: 15px 0;
-    text-align: center;
-  
-  }
-  .form .message a {
-    font-size: 14px;
-    color: #6a62d2;
-    text-decoration: none;
-  }
-  
+.card {
+  border-radius: 8px;
+}
+
+h5.card-title {
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 6px;
+}
+
+.btn-warning {
+  background-color: #FF5722;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #FF7043;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  margin-top: 5px;
+}

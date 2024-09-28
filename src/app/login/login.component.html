@@ -1,48 +1,56 @@
-<!-- Background Overlay with blur -->
-<div class="overlay" *ngIf="loginState === 'in'" (click)="closeModal()"></div>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-4" style="width: 400px; border-radius: 8px;">
+    <h5 class="card-title text-center mb-4">Login</h5>
 
-<!-- Login Modal -->
-<div class="login-modal" [@slideInOut]="loginState">
-  <div class="login-container">
-    <!-- Close button -->
-    <button class="close-btn" (click)="closeModal()">&times;</button>
-
-    <!-- LOGIN starts -->
-    <div class="login-page">
-      <div class="form">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <h2>SIGN IN TO YOUR ACCOUNT</h2>
-    
-          <input type="text" formControlName="user" required placeholder="Username" id="user" autocomplete="off" />
-          <input
-            [type]="passwordVisible ? 'text' : 'password'"
-            formControlName="pass"
-            placeholder="Password"
-            id="pass"
-            (input)="formvalid()"
-            autocomplete="off"
-          />
-    
-          <!-- <img
-            [src]="passwordVisible ? 'https://static.thenounproject.com/png/777494-200.png' : 'https://cdn2.iconfinder.com/data/icons/basic-ui-interface-v-2/32/hide-512.png'"
-            (click)="show()"
-            id="showimg"
-            style="cursor: pointer;"
-            alt="Show/Hide Password"
-          /> -->
-    
-          <span id="vaild-pass">{{ passwordErrorMessage }}</span>
-    
-          <button type="submit" [disabled]="loginForm.invalid">SIGN IN</button>
-    
-          <p class="message"><a href="#">Forgot your password?</a></p>
-        </form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Email Field -->
+      <div class="form-group mb-3">
+        <input 
+          type="email" 
+          class="form-control" 
+          formControlName="email" 
+          placeholder="Your email">
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+          Please enter a valid email.
+        </div>
       </div>
+
+      <!-- Password Field -->
+      <div class="form-group mb-3">
+        <input 
+          type="password" 
+          class="form-control" 
+          formControlName="password" 
+          placeholder="Password">
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <!-- Terms and Conditions Checkbox -->
+      <div class="form-check mb-3">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          formControlName="terms">
+        <label class="form-check-label">
+          By continuing, I agree to the terms of use & privacy policy.
+        </label>
+        <div *ngIf="loginForm.get('terms')?.invalid && loginForm.get('terms')?.touched" class="text-danger">
+          You must agree to the terms.
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <button 
+        type="submit" 
+        class="btn btn-warning w-100" 
+        [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <small>Don't have an account? <a (click)="navigateToCreateAccount()" style="cursor: pointer; text-decoration: underline; color: blue;">Create a new account</a></small>
     </div>
-    
-      <!-- Login ends -->
-
-
   </div>
-  </div>
-
+</div>

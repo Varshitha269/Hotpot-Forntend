@@ -35,7 +35,7 @@ export const routes: Routes = [
         component: RestaruantsComponent
     },
     {
-        path: 'app-restruantpage/:rname',
+        path: 'app-restruantpage/:id',
         component: RestruantpageComponent
     },
     {

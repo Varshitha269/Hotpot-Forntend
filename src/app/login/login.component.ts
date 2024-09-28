@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -11,66 +11,50 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   imports: [FormsModule,CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({
-        transform: 'translateX(0)',
-        opacity: 1
-      })),
-      state('out', style({
-        transform: 'translateX(100%)',
-        opacity: 0
-      })),
-      transition('out => in', animate('300ms ease-in')),
-      transition('in => out', animate('300ms ease-out'))
-    ])
-  ]
+  
   
 })
-export class LoginComponent {
-  loginForm: FormGroup;
-  passwordVisible: boolean = false; // For show/hide password
-  passwordErrorMessage: string = '';
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private router: Router,private authservice:AuthService) {}
+
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
-      user: ['', [Validators.required]],
-      pass: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]]
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      terms: [false, Validators.requiredTrue]
     });
   }
+  navigateToCreateAccount() {
+    this.router.navigate(['/app-reactiveform']);
+  }
 
-  formvalid() {
-    const passwordControl = this.loginForm.get('pass');
-    const password = passwordControl?.value;
-
-    if (password.length < 8 || password.length > 20) {
-      this.passwordErrorMessage = "Password must be between 8 and 20 characters";
+  onSubmit(): void {
+    const username = this.loginForm.get('username')?.value;
+    const password = this.loginForm.get('password')?.value;
+    if (username && password) {
+      this.authservice.login(username, password).subscribe({
+        next: (response: any) => {
+          if (response && response.token) {
+            const token = response.token;
+            this.authservice.setToken(token);
+            this.router.navigate(['/app-apiclient']);
+          } else {
+            console.error('Invalid response');
+          }
+        },
+        error: (error: any) => {
+          console.error(error);
+        },
+        complete: () => {
+          console.log('Request completed');
+        }
+      });
     } else {
-      this.passwordErrorMessage = '';
+      console.error('Invalid form values');
     }
-  }
+   }
 
-  show() {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  // Submit form logic (you can replace the logic to handle actual login)
-  onSubmit() {
-    if (this.loginForm.valid) {
-      // Logic for form submission, e.g., make an API call
-      console.log("Form Submitted:", this.loginForm.value);
-    }
-  }
-  loginState = 'out';
-
-  // Toggle login modal
-  toggleLogin() {
-    this.loginState = this.loginState === 'out' ? 'in' : 'out';
-  }
-
-  // Close the modal specifically when "X" is clicked
-  closeModal() {
-    this.loginState = 'out';
   }
   
-}

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private addUserURL = "https://localhost:7121/api/User";
-  private updateURL="";
+  private updateURL="https://localhost:7121/api/User";
 
   constructor(private http: HttpClient) {}
   addUserDetails(addUserData: any): Observable<any> {
@@ -17,7 +17,13 @@ export class UserService {
 
   updateUserDetails(updateUserData:any):Observable<any>
   {
-    return this.http.put(`${this.updateURL}/updateUserData.userID`,updateUserData);
+    return this.http.put(`${this.updateURL}/${updateUserData.userID}`,updateUserData);
+  }
+
+  deleteUserDetails(id:number):Observable<any>
+  {
+    return this.http.delete(`${this.updateURL}/${id}`);
+
   }
 
 

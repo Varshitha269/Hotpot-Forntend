@@ -1,51 +1,65 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="text-center">Reactive Form</h2>
-            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="border p-4 rounded shadow">
-                <div class="mb-3">
-                    <label for="username" class="form-label">UserName</label>
-                    <input id="username" formControlName="username" class="form-control"/>
-                    <div *ngIf="userForm.get('username')?.touched && userForm.get('username')?.invalid" class="alert alert-danger">
-                        Name is Required
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input id="email" formControlName="email" type="email" class="form-control"/>
-                    <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.hasError('required')" class="alert alert-danger">
-                        Email is required.
-                    </div>
-                    <div *ngIf="userForm.get('email')?.touched && userForm.get('email')?.hasError('email')" class="alert alert-warning">
-                        Please enter a valid email address.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Phone Number:</label>
-                    <input id="phone" formControlName="phone" type="tel" class="form-control"/>
-                    <div *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.hasError('required')" class="alert alert-danger">
-                        Phone number is required.
-                    </div>
-                    <div *ngIf="userForm.get('phone')?.touched && userForm.get('phone')?.hasError('pattern')" class="alert alert-warning">
-                        Please enter a valid 10-digit phone number.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input id="password" formControlName="password" type="password" class="form-control"/>
-                    <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.hasError('required')" class="alert alert-danger">
-                        Password is required.
-                    </div>
-                    <div *ngIf="userForm.get('password')?.touched && userForm.get('password')?.hasError('pattern')" class="alert alert-warning">
-                        Password must be at least 8 characters long and contain uppercase letters, lowercase letters, numbers, and special characters.
-                    </div>
-                </div>
-
-                <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary w-100">Submit</button>
-            </form>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-lg" style="width: 400px;">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-4">Sign Up</h5>
+  
+        <!-- Reactive form starts here -->
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          
+          <div class="form-group mb-3">
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="name" 
+              placeholder="Your name">
+            <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" class="text-danger">
+              Name is required and should be at least 3 characters long.
+            </div>
+          </div>
+  
+          <div class="form-group mb-3">
+            <input 
+              type="email" 
+              class="form-control" 
+              formControlName="email" 
+              placeholder="Your email">
+            <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
+              Please enter a valid email.
+            </div>
+          </div>
+  
+          <div class="form-group mb-3">
+            <input 
+              type="password" 
+              class="form-control" 
+              formControlName="password" 
+              placeholder="Password">
+            <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="text-danger">
+              Password is required and should be at least 6 characters long.
+            </div>
+          </div>
+  
+          <div class="form-check mb-3">
+            <input 
+              type="checkbox" 
+              class="form-check-input" 
+              formControlName="terms">
+            <label class="form-check-label" for="terms">By continuing, I agree to the terms of use & privacy policy.</label>
+            <div *ngIf="signupForm.get('terms')?.invalid && signupForm.get('terms')?.touched" class="text-danger">
+              You must accept the terms.
+            </div>
+          </div>
+  
+          <button 
+            type="submit" 
+            class="btn btn-warning w-100" 
+            [disabled]="signupForm.invalid">Create account</button>
+        </form>
+  
+        <div class="text-center mt-3">
+          <small>Already have an account? <a (click)="navigateTologinAccount()" style="cursor: pointer; text-decoration: underline; color: blue;">Login here</a></small>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  

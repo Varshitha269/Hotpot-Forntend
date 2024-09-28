@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component,OnInit} from '@angular/core';
-import { FormControl,FormGroup,FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl,FormGroup,FormsModule, ReactiveFormsModule, Validators,FormBuilder} from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-reactiveform',
@@ -10,25 +12,32 @@ import { FormControl,FormGroup,FormsModule, ReactiveFormsModule, Validators } fr
   styleUrl: './reactiveform.component.css'
 })
 export class ReactiveformComponent implements OnInit {
-  userForm!:FormGroup
+  signupForm!: FormGroup; // FormGroup for the reactive form
+
+  constructor(private fb: FormBuilder,private router: Router) {}
+
   ngOnInit(): void {
-    this.userForm=new FormGroup({
-      username:new FormControl('',Validators.required),
-      email:new FormControl('',[Validators.required,Validators.email]),
-      phone:new FormControl('',[Validators.required,Validators.pattern('^[0-9]{10}$')]),
-      password:new FormControl('',[Validators.required,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$')])
-      });
+    // Initialize the form with form controls and validators
+    this.signupForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      terms: [false, [Validators.requiredTrue]] // Terms checkbox validation
+    });
   }
- 
-  onSubmit()
+  navigateTologinAccount()
   {
-    if(this.userForm.valid)
-    {
-      alert('Form Submitted:'+this.userForm.value);
-    }
-    else{
-      alert('Form is Invalid');
-    }
+    this.router.navigate(['/app-login']);
+
   }
 
+  // Submit handler
+  onSubmit() {
+    if (this.signupForm.valid) {
+      console.log('Form Data:', this.signupForm.value);
+      // Implement form submission logic here (e.g., send data to API)
+    } else {
+      console.log('Form is invalid');
+    }
+  }
 }

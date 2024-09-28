@@ -25,7 +25,7 @@
     <div class="col-md-10">  <!-- Increase column width to 10 for a larger form box -->
       <div class="card form-container shadow">
         <div class="card-body">
-          <form [formGroup]="userForm" (ngSubmit)="Adduserdetails()">
+          <form [formGroup]="userForm" (ngSubmit)="updateuserdetails()">
             
             <!-- Step 1: User Information -->
             <div *ngIf="currentStep === 1">
@@ -86,3 +86,4 @@
     </div>
   </div>
 </div>
+<button (click)="deleteuserdetails()">click me </button>
