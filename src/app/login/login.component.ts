@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       terms: [false, Validators.requiredTrue]
     });
@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
         next: (response: any) => {
           if (response && response.token) {
             const token = response.token;
-            this.authservice.setToken(token);
-            this.router.navigate(['/app-apiclient']);
+            //this.authservice.setToken(token);
+            this.router.navigate(['/']);
           } else {
             console.error('Invalid response');
           }

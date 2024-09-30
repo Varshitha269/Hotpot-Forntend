@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, throwError  } from 'rxjs';
 
+
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 //import { CombinedData, MenuItem, Rating, Restaurant } from './models/datastructure';
-import { CombinedData, MenuItem, Rating, Restaurant,Menu } from '../model/datastructure';
+import { CombinedData, MenuItem, Rating, Restaurant,Menu ,RestaurantwithMenuItems} from '../model/datastructure';
 
 
 @Injectable({
@@ -14,22 +15,7 @@ import { CombinedData, MenuItem, Rating, Restaurant,Menu } from '../model/datast
 export class RestaurantService {
   private apiUrl = 'https://localhost:7121/api';
   constructor(private http: HttpClient) {}
-  // getCombinedData(restaurantId: number): Observable<CombinedData> {
-  //   const restaurant$ = this.http.get<Restaurant>(`${this.apiUrl}/Restaurant/${restaurantId}`);
-  //   const menuItems$ = this.http.get<MenuItem[]>(`${this.apiUrl}/Menu/${restaurantId}`);
-  //   const ratings$ = this.http.get<Rating[]>(`${this.apiUrl}/FeedbackRatings?restaurantId=${restaurantId}`);
-  //   return new Observable<CombinedData>(subscriber => {
-  //     forkJoin([restaurant$, menuItems$, ratings$]).subscribe(
-  //       ([restaurant, menuItems, ratings]) => {
-  //         subscriber.next({ restaurant, menuItems, ratings });
-  //         subscriber.complete();
-  //       },
-  //       (error) => {
-  //         subscriber.error(error);
-  //       }
-  //     );
-  //   });
-  // }
+  
 
   getCombinedData1(restaurantId: number): Observable<CombinedData> {
     // Step 1: Fetch Restaurant
@@ -66,7 +52,62 @@ export class RestaurantService {
     );
 }
 
+
+getAllRestaurants(): Observable<Restaurant[]> {
+    return this.http.get<Restaurant[]>(`${this.apiUrl}/Restaurant`);
+  }
+
+  getCombinedDataForRestaurant(restaurant: Restaurant): Observable<CombinedData> {
+    const menus$ = this.http.get<Menu[]>(`${this.apiUrl}/Menu/restaurant/${restaurant.restaurantID}`);
+
+    return menus$.pipe(
+      switchMap(menus => {
+        const menuItems$ = forkJoin(
+          menus.map(menu => 
+            this.http.get<MenuItem[]>(`${this.apiUrl}/MenuItem/menu/${menu.menuID}`)
+          )
+        );
+        const ratings$ = this.http.get<Rating[]>(`${this.apiUrl}/FeedbackRatings/restaurant/${restaurant.restaurantID}`);
+
+        return forkJoin([menuItems$, ratings$]).pipe(
+          map(([menuItemsList, ratings]) => {
+            const menuItems = menuItemsList.flat(); // Flatten menu items array
+
+            return { 
+              restaurant, 
+              menuItems, 
+              ratings 
+            };
+          })
+        );
+      }),
+      catchError(error => {
+        console.error('Error fetching data for restaurant:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+
+  getRestaurantsWithMenuItemName(menuItemName: string): Observable<RestaurantwithMenuItems[]> {
+    const apiUrl = `https://localhost:7121/api/RestaurantMenuItem/${menuItemName}`;
   
+    return this.http.get<RestaurantwithMenuItems[]>(apiUrl).pipe(
+      catchError(error => {
+        console.error('Error fetching restaurants with menu item name:', error);
+        return throwError(() => new Error('Failed to fetch restaurants, please try again later.'));
+      })
+    );
+  }
+  
+
+
+  getRestaurantIdByMenuId(menuId: number): Observable<number> {
+    const url = `${this.apiUrl}/Menu/restaurantid/${menuId}`;
+
+    return this.http.get<number>(`${url}`);
+  }
+
   }
 
 

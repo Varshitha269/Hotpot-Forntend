@@ -15,38 +15,36 @@
 
 
 <div class="container mt-5">
-  <!-- Filters Section -->
   <div class="d-flex justify-content-between align-items-center item-bar mb-4">
-    <div class="number">1066 restaurants</div>
+    <div class="number">{{ restaurants.length }} restaurants Near You</div>
     <div class="filters d-flex">
       <div class="btn-group" role="group" aria-label="Filter Options">
         <button type="button" class="btn btn-outline-secondary" (click)="sort('relevance')">Relevance</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="sort('delivery')">Delivery Time</button>
         <button type="button" class="btn btn-outline-secondary" (click)="sort('rating')">Rating</button>
         <button type="button" class="btn btn-outline-secondary" (click)="sort('costLh')">Cost: Low to High</button>
         <button type="button" class="btn btn-outline-secondary" (click)="sort('costHl')">Cost: High to Low</button>
       </div>
     </div>
   </div>
+  
 
   <!-- Restaurants List Section -->
   <div class="row restaurant-list">
-    <div class="col-md-3" *ngFor="let restaurant of restaurants" (click)="naviagteToRestaruantmenu(restaurant.id)">
+    <div class="col-md-3" *ngFor="let restaurant of restaurants" (click)="naviagteToRestaruantmenu(restaurant.restaurant.restaurantID)">
       <div class="card list-item h-100">
-        <img [src]="restaurant.image" class="card-img-top" alt="{{ restaurant.name }}">
+        <img [src]="getRandomImage(restaurant.menuItems)" class="card-img-top" alt="{{ restaurant.restaurant.name }}" style="height: 200px; object-fit: cover;">
         <div class="card-body item-content">
-          <h5 class="card-title name">{{ restaurant.name }}</h5>
-          <p class="card-text food-items">{{ restaurant.cuisine }}</p>
+          <h5 class="card-title name">{{ restaurant.restaurant.name }}</h5>
+          <p class="card-text food-items">{{getCategories(restaurant.menuItems).join(', ') }}</p>
           <div class="info-div d-flex justify-content-between">
             <div class="rating">
-              <i class="fa-solid fa-star"></i> {{ restaurant.rating }}
+              <i class="fa-solid fa-star"></i> {{ calculateAverageRating(restaurant.ratings) }}
             </div>
-            <div>{{ restaurant.deliveryTime }} MINS</div>
-            <div class="price">₹{{ restaurant.cost }} FOR TWO</div>
+            <div class="price">₹{{ calculateAveragePrice(restaurant.menuItems).toFixed(1) }}</div>
           </div>
           <div class="offer-div">
             <i class="fa-solid fa-tag icon-offer-filled"></i>
-            <span class="offer-text">{{ restaurant.offer }}</span>
+            <span class="offer-text">50% off | Use WELCOME50</span>
           </div>
         </div>
       </div>

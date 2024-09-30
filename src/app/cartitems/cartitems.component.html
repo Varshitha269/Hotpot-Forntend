@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4">Shopping Cart</h1>
+<h1 class="text-center mb-4">Your Cart</h1>
 
 <!-- Empty Cart Message -->
 <div *ngIf="isCartEmpty()" class="alert alert-warning text-center" role="alert">
@@ -10,18 +10,17 @@
   <div class="row">
     <!-- Product List Section -->
     <div class="col-md-8">
-      <div class="row mb-3" *ngFor="let product of products">
+      <div class="row mb-3" *ngFor="let product of cart">
         <div class="col-12">
           <div class="card p-3 shadow-sm">
             <div class="row align-items-center">
               <!-- Product Image -->
               <div class="col-md-3 text-center">
-                <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 80px;" />
+                <img src="{{ product.image }}" alt="Product Image" class="img-fluid rounded" style="max-width: 80px;" />
               </div>
               <!-- Product Name -->
               <div class="col-md-3">
                 <h5 class="product-name">{{ product.name }}</h5>
-                <p class="text-muted">Product Code</p>
               </div>
               <!-- Quantity -->
               <div class="col-md-2 text-center">
@@ -31,9 +30,10 @@
                   <button class="btn btn-outline-secondary btn-sm" (click)="incrementQuantity(product)">+</button>
                 </div>
               </div>
-              <!-- Price -->
+              <!-- Price Before Discount -->
               <div class="col-md-2 text-center">
-                <span class="product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }}</span>
+                <span class="product-price" style="text-decoration: line-through;">{{ product.price | currency:'INR':'symbol':'1.2-2' }}</span>
+                <span class="text-success">{{ product.discount | currency:'INR':'symbol':'1.2-2' }} off</span>
               </div>
               <!-- Line Price -->
               <div class="col-md-1 text-center">
@@ -71,13 +71,10 @@
           <strong>{{ total | currency:'INR':'symbol':'1.2-2' }}</strong>
         </div>
         <div class="text-center">
-          <button *ngIf="total > 0" class="btn btn-primary btn-lg">Proceed to Checkout</button>
+          <button *ngIf="total > 0" class="btn btn-primary btn-lg" (click)="onCheckout()">Proceed to Checkout</button>
         </div>
         <hr />
-        
       </div>
     </div>
   </div>
 </div>
-
-  

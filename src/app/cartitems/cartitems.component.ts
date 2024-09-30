@@ -2,15 +2,24 @@ import { CommonModule, CurrencyPipe, registerLocaleData } from '@angular/common'
 import { Component, LOCALE_ID } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import localeIn from '@angular/common/locales/en-IN';
+import { CartService } from '../service/cart.service';
+import { OrderService } from '../service/order.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 registerLocaleData(localeIn, 'en-IN');
 
-interface Product {
+// Updated CartItem interface
+interface CartItem {
+  cartID: number; // Ensure this matches the API response
   name: string;
   price: number;
   quantity: number;
   linePrice: number;
-  image: string;  // Added image property
+  image: string;
+  discount: number; // Added discount property
+  userId: number;  // Add userId here
+  restaurantId: number; 
 }
 
 @Component({
@@ -26,52 +35,111 @@ interface Product {
 export class CartitemsComponent {
   taxRate = 0.05;
   shippingRate = 15.00;
-  products: Product[] = [];
+  cart: CartItem[] = [];
   subtotal: number = 0;
   tax: number = 0;
   shipping: number = 0;
   total: number = 0;
+  userId: number=1; // Initialize to null
+  restaurantId: number=0; 
 
-  constructor(private fb: FormBuilder) {
-    this.products = [
-      { name: 'Pizza', price: 15, quantity: 3, linePrice: 45, image: 'images/pizza.jpg' },
-      { name: 'Burger', price: 10, quantity: 2, linePrice: 20, image: 'images/burger.jpg' },
-      { name: 'ice cream', price: 2, quantity: 3, linePrice: 6, image: 'images/icecream.jpg' }
-    ];
-    this.recalculateCart();
+  constructor(private cartservice: CartService, private fb: FormBuilder,private orderserivce:OrderService,private router:Router) {
+    this.loadCartDetails();
   }
 
+  private loadCartDetails() {
+    this.cartservice.getCartDetails().subscribe((result) => {
+      console.log('Cart items:', result); // Log the result to inspect
+      this.cart = result;
+      this.recalculateCart(); // Recalculate cart totals after loading
+      this.restaurantId=this.cart[0].restaurantId;
+      console.log(this.cart[0].userId,this.restaurantId);
+      
+    });
+  }
+  
+
   recalculateCart() {
-    this.subtotal = this.products.reduce((acc, product) => acc + product.linePrice, 0);
+    this.subtotal = this.cart.reduce((acc, item) => acc + item.linePrice, 0);
     this.tax = this.subtotal * this.taxRate;
     this.shipping = (this.subtotal > 0 ? this.shippingRate : 0);
     this.total = this.subtotal + this.tax + this.shipping;
   }
 
-  updateQuantity(product: Product, quantity: number) {
-    product.quantity = quantity;  // Update quantity field
-    product.linePrice = product.price * quantity;
+  updateQuantity(item: CartItem, quantity: number) {
+    item.quantity = quantity; // Update quantity field
+    item.linePrice = (item.price - item.discount) * quantity; // Adjust line price with discount
     this.recalculateCart();
   }
 
-  removeItem(product: Product) {
-    this.products = this.products.filter(p => p !== product);
+  removeItem(item: CartItem) {
+    this.cart = this.cart.filter(cartItem => cartItem !== item);
+
+    // Use item.cartID to pass the CartID
+    this.cartservice.deleteCartDetails(item.cartID).subscribe(
+      response => {
+        console.log('Cart details deleted successfully:', response);
+        alert('Cart details deleted successfully!');
+      },
+      (error) => {
+        // Error callback
+        console.error('Error deleting Cart details:', error);
+        alert('An error occurred while deleting Cart details. Please try again.');
+      }
+    );
+
     this.recalculateCart();
   }
 
-  decrementQuantity(product: Product) {
-    if (product.quantity > 1) {
-      product.quantity--;
-      this.updateQuantity(product, product.quantity);
+  decrementQuantity(item: CartItem) {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.updateQuantity(item, item.quantity);
     }
   }
 
-  incrementQuantity(product: Product) {
-    product.quantity++;
-    this.updateQuantity(product, product.quantity);
+  incrementQuantity(item: CartItem) {
+    item.quantity++;
+    this.updateQuantity(item, item.quantity);
   }
 
   isCartEmpty(): boolean {
-    return this.products.length === 0;
+    return this.cart.length === 0;
   }
+
+  onCheckout() {
+
+   const orderData = {
+    orderID: 0, 
+    userID: this.userId, 
+    restaurantID: this.restaurantId, 
+    orderDate: new Date().toISOString(), 
+    totalAmount: this.total, 
+    orderStatus: 'Pending', 
+    paymentStatus: 'Pending', 
+    deliveryAddress: "user delivery addresss", 
+    deliveryDate: new Date().toISOString(), 
+    createdDate: new Date().toISOString() 
+  };
+
+  this.orderserivce.placeOrder(orderData).subscribe({
+    next: (result) => {
+      alert('Order placed successfully:');
+      
+      this.router.navigate(['/']);
+    },
+    error: (error) => {
+      console.error('Error placing order:', error);
+      
+      alert('There was an error placing your order. Please try again.');
+    }
+  });
 }
+
+
+  
+
+ 
+}
+
+  

@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuitemsService } from '../service/menuitems.service';
 import { HttpClient } from '@angular/common/http';
+import { RestaurantService } from '../service/restaurant.service';
+import { CombinedData, Restaurant,Rating,MenuItem } from '../model/datastructure';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -13,110 +16,105 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './restaurantcards.component.html',
   styleUrls: ['./restaurantcards.component.css'] // Corrected to styleUrls
 })
-export class RestaurantCardsComponent {
+export class RestaurantCardsComponent implements OnInit{
+  restaurants: CombinedData[] = [];
+
   menuitems:any[]=[]
-    constructor(private menuitemservice:MenuitemsService,private router: Router){
+  
+    constructor(private menuitemservice:MenuitemsService,private router: Router,private restaurantService: RestaurantService){
+      
       this.menuitemservice.fetchMenuItems().subscribe((menuitems)=>{
         this.menuitems=menuitems;
 
       });
      }
+     ngOnInit(): void {
+      this.fetchAllRestaurants();
+      
+    }
+    fetchAllRestaurants() {
+      this.restaurantService.getAllRestaurants().subscribe(
+        restaurants => {
+          // Create an array of observables for the combined data requests
+          const combinedDataRequests = restaurants.map(restaurant => 
+            this.restaurantService.getCombinedDataForRestaurant(restaurant)
+          );
+  
+          // Use forkJoin to wait for all requests to complete
+          forkJoin(combinedDataRequests).subscribe(
+            combinedDataArray => {
+              this.restaurants = combinedDataArray;
+            console.log("Restaurants Loaded: ", this.restaurants); // Set the combined data
+            },
+            error => {
+              console.error('Error fetching combined data for restaurants:', error);
+            }
+          );
+        },
+        error => {
+          console.error('Error fetching restaurants:', error);
+        }
+      );
+    }
+    calculateAveragePrice(menuItems: MenuItem[]): number {
+      const totalPrice = menuItems.reduce((sum, item) => sum + item.price, 0);
+      return menuItems.length ? totalPrice / menuItems.length : 0;
+    }
+  
+    // Get a random image from menu items
+    getRandomImage(menuItems: MenuItem[]): string {
+      return menuItems.length ? menuItems[Math.floor(Math.random() * menuItems.length)].imageUrl : '';
+    }
+  
+    // Get unique categories
+    getCategories(menuItems: MenuItem[]): string[] {
+      return [...new Set(menuItems.map(item => item.category))];
+    }
+  
+    // Calculate average rating
+    calculateAverageRating(ratings: Rating[]): number {
+      if (!ratings.length) return 0;
+      const totalRating = ratings.reduce((sum, rating) => sum + rating.rating, 0);
+      return parseFloat((totalRating / ratings.length).toFixed(1));
+    }
+    
+    
+  
+    
+  
+    sort(type: string) {
+    
+      if (type === 'relevance') {
+        // Sort by restaurant name (alphabetical order)
+        this.restaurants.sort((a, b) => a.restaurant.name.localeCompare(b.restaurant.name));
+      } 
+      else if (type === 'rating') {
+        // Sort by average rating (highest to lowest)
+        this.restaurants.sort((a, b) => 
+          this.calculateAverageRating(b.ratings) - this.calculateAverageRating(a.ratings)
+        );
+      } else if (type === 'costLh') {
+        // Sort by average price (low to high)
+        this.restaurants.sort((a, b) => 
+          this.calculateAveragePrice(a.menuItems) - this.calculateAveragePrice(b.menuItems)
+        );
+      } else if (type === 'costHl') {
+        // Sort by average price (high to low)
+        this.restaurants.sort((a, b) => 
+          this.calculateAveragePrice(b.menuItems) - this.calculateAveragePrice(a.menuItems)
+        );
+      }
+      
+      // Optional: log the sorted array for debugging
+      console.log('Sorted restaurants:', this.restaurants);
+    }
+    
      
        
     
   
 
-  // Popular restaurants data with additional fields
-  // List of restaurants
-  restaurants = [
-    {
-        id: 1,
-        name: "La Pino'z Pizza",
-        cuisine: "Italian, Pizzas, Fast Food, Mexican, Desserts, Beverages",
-        rating: 3.8,
-        deliveryTime: 42,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/biriyani.jpg"
-    },
-    {
-        id: 1,
-        name: "Bercos - If you love Chinese",
-        cuisine: "Chinese, Thai, Asian, Beverages, Desserts",
-        rating: 4.0,
-        deliveryTime: 33,
-        cost: 500,
-        offer: "50% off | Use WELCOME50",
-        image: "images/burger.jpg"
-    },
-    {
-        id: 1,
-        name: "Wack Waffles & Brownies",
-        cuisine: "Waffle, Bakery, Desserts, Beverages",
-        rating: 3.9,
-        deliveryTime: 34,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/southindian.jpg"
-    },
-    {
-        id: 1,
-        name: "Wack Waffles & Brownies",
-        cuisine: "Waffle, Bakery, Desserts, Beverages",
-        rating: 3.9,
-        deliveryTime: 34,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/southindian.jpg"
-    },
-    {
-        id: 1,
-        name: "Wack Waffles & Brownies",
-        cuisine: "Waffle, Bakery, Desserts, Beverages",
-        rating: 3.9,
-        deliveryTime: 34,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/southindian.jpg"
-    },
-    {
-        id: 1,
-        name: "Wack Waffles & Brownies",
-        cuisine: "Waffle, Bakery, Desserts, Beverages",
-        rating: 3.9,
-        deliveryTime: 34,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/southindian.jpg"
-    },
-    {
-        id: 1,
-        name: "Wack Waffles & Brownies",
-        cuisine: "Waffle, Bakery, Desserts, Beverages",
-        rating: 3.9,
-        deliveryTime: 34,
-        cost: 250,
-        offer: "50% off | Use WELCOME50",
-        image: "images/southindian.jpg"
-    }
-    // Add more restaurants here
-];
 
-
-  // Sort the restaurant list based on filters
-  sort(type: string) {
-    if (type === 'relevance') {
-      this.restaurants.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (type === 'delivery') {
-      this.restaurants.sort((a, b) => a.deliveryTime - b.deliveryTime);
-    } else if (type === 'rating') {
-      this.restaurants.sort((a, b) => b.rating - a.rating);
-    } else if (type === 'costLh') {
-      this.restaurants.sort((a, b) => a.cost - b.cost);
-    } else if (type === 'costHl') {
-      this.restaurants.sort((a, b) => b.cost - a.cost);
-    }
-  }
  
 
   naviagteToRestaruantFoods(categoryname:string)

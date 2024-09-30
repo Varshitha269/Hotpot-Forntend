@@ -44,7 +44,7 @@ export interface MenuItem {
     ratings: Rating[];
   }
   export interface Menu{
-    menuID: number;            
+  menuID: number;            
   restaurantID: number;      
   menuName: string;          
   description: string;       
@@ -58,3 +58,37 @@ export interface MenuItem {
     name: string;
     items: MenuItem[];
   }
+
+
+  export interface RestaurantwithMenuItems {
+    restaurantID: number;
+    name: string;
+    restaurantDescription: string;
+    phNo: string;
+    email: string;
+    addressLine: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+    menuItemID: number;
+    itemName: string;
+    menuItemDescription: string;
+    category: string;
+    price: number;
+    specialDietaryInfo: string;
+    tasteInfo: string;
+    nutritionalInfo: string;
+    availabilityTime: string;
+    imageURL: string;
+    averageRating: number;
+  }
+
+  export interface Cart {
+    cartID: number;         
+    userID: number;         
+    menuItemID: number;     
+    quantity: number;       
+    price: number;          
+    createdDate: Date;      
+}

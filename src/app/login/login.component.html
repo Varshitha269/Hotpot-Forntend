@@ -7,14 +7,14 @@
       <!-- Email Field -->
       <div class="form-group mb-3">
         <input 
-          type="email" 
+          type="text" 
           class="form-control" 
-          formControlName="email" 
-          placeholder="Your email">
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-          Please enter a valid email.
+          formControlName="username" 
+          placeholder="Your username">
+        <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="text-danger">
+          Please enter a valid username.
         </div>
-      </div>
+    </div>
 
       <!-- Password Field -->
       <div class="form-group mb-3">

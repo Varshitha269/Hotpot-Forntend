@@ -1,10 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
   <div class="navbar-left d-flex align-items-center mx-3">
+    <a routerLink="/">
       <img src="favicon.ico" alt="HOT POT Logo" class="logo" height="49">
-      <span class="brand-name ml-2">HOT POT.</span>
+    </a>
+    <span class="brand-name ml-2">HOT POT.</span>
   </div>
-  <div class="navbar-center mx-auto">
-      <input type="text" class="form-control rounded-search custom-search" placeholder="Search" aria-label="Search" style="width: 300px; height: 40px;">
+  <div class="navbar-center mx-auto d-flex">
+    <input type="text"
+           class="form-control rounded-search custom-search"
+           placeholder="Search" 
+           aria-label="Search"
+           [(ngModel)]="searchQuery"
+           style="width: 300px; height: 40px;">
+    <button class="btn btn-primary ml-2" (click)="onSearch()">Search</button>
   </div>
   <div class="navbar-right d-flex mx-3">
     <a routerLink="/app-about" class="nav-link">About Us</a>

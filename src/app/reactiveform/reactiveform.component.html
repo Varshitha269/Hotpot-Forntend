@@ -4,18 +4,19 @@
         <h5 class="card-title text-center mb-4">Sign Up</h5>
   
         <!-- Reactive form starts here -->
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="signupForm" (ngSubmit)="Adduserdetails()">
           
           <div class="form-group mb-3">
             <input 
               type="text" 
               class="form-control" 
-              formControlName="name" 
-              placeholder="Your name">
-            <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" class="text-danger">
-              Name is required and should be at least 3 characters long.
+              formControlName="username" 
+              placeholder="Your username">
+            <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
+              Username is required and should be at least 3 characters long.
             </div>
           </div>
+          
   
           <div class="form-group mb-3">
             <input 

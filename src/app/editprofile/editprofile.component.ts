@@ -40,26 +40,7 @@ export class EditprofileComponent implements OnInit {
   }
 
 
-  Adduserdetails(){
-
-    const userdata=this.userForm.value;
-    this.userService.addUserDetails(userdata).subscribe(
-      (response)=>{
-        console.log('User details Added successfully:', response);
-        
-        alert('User details Added successfully!');
-       
-        this.userForm.reset();
-
-      },
-      (error) => {
-        // Error callback
-        console.error('Error adding user details:', error);
-        alert('An error occurred while adding user details. Please try again.');
-        this.userForm.reset();
-      }
-    );
-  }
+  
 
   updateuserdetails(){
 
