@@ -14,6 +14,13 @@ export class UserService {
   addUserDetails(addUserData: any): Observable<any> {
     return this.http.post(`${this.addUserURL}`, addUserData);
   }
+  getAllUsers(): Observable<any[]> { // Add this method
+    return this.http.get<any[]>(this.addUserURL); // Adjust endpoint if necessary
+  }
+
+  getUserDetails(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.addUserURL}/${userId}`);
+  }
 
   updateUserDetails(updateUserData:any):Observable<any>
   {

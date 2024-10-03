@@ -6,6 +6,7 @@ import { CartService } from '../service/cart.service';
 import { OrderService } from '../service/order.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { PayloadService } from '../service/payload.service';
 
 registerLocaleData(localeIn, 'en-IN');
 
@@ -40,10 +41,11 @@ export class CartitemsComponent {
   tax: number = 0;
   shipping: number = 0;
   total: number = 0;
-  userId: number=1; // Initialize to null
+  userId: number| null = null; // Initialize to null
   restaurantId: number=0; 
 
-  constructor(private cartservice: CartService, private fb: FormBuilder,private orderserivce:OrderService,private router:Router) {
+  constructor(private cartservice: CartService, private fb: FormBuilder,private orderserivce:OrderService,private router:Router,private payloadService: PayloadService) {
+    this.setUserId();
     this.loadCartDetails();
   }
 
@@ -56,6 +58,17 @@ export class CartitemsComponent {
       console.log(this.cart[0].userId,this.restaurantId);
       
     });
+  }
+  private setUserId(): void {
+    const userId = this.payloadService.getUserId();
+    
+    if (userId) {
+      this.userId = Number(userId); // Set the userId if found
+    } else {
+      // Redirect to login if no userId found
+      alert('You need to log in.');
+      this.router.navigate(['/app-login']);
+    }
   }
   
 
@@ -115,8 +128,8 @@ export class CartitemsComponent {
     restaurantID: this.restaurantId, 
     orderDate: new Date().toISOString(), 
     totalAmount: this.total, 
-    orderStatus: 'Pending', 
-    paymentStatus: 'Pending', 
+    orderStatus: 'Delivered', 
+    paymentStatus: 'Sucess', 
     deliveryAddress: "user delivery addresss", 
     deliveryDate: new Date().toISOString(), 
     createdDate: new Date().toISOString() 

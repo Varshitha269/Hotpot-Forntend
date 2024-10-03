@@ -1,0 +1,40 @@
+.table {
+    margin-top: 20px;
+  }
+  
+  button {
+    margin-right: 5px;
+  }
+  .container {
+    margin: 20px;
+  }
+  
+  .form-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .menu-item-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  h2 {
+    margin-top: 30px;
+  }
+  
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn {
+    margin-left: 5px;
+  }
+  .button-group {
+    display: flex;
+    gap: 10px; /* Adjusts the spacing between the buttons */
+  }    

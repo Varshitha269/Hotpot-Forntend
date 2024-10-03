@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { RestaurantService } from '../service/restaurant.service';
 import { CombinedData, Restaurant,Rating,MenuItem } from '../model/datastructure';
 import { forkJoin } from 'rxjs';
+import { FeedbackComponent } from '../feedback/feedback.component';
 
 
 @Component({
@@ -31,8 +32,10 @@ export class RestaurantCardsComponent implements OnInit{
      ngOnInit(): void {
       this.fetchAllRestaurants();
       
+      
     }
     fetchAllRestaurants() {
+      
       this.restaurantService.getAllRestaurants().subscribe(
         restaurants => {
           // Create an array of observables for the combined data requests
@@ -44,7 +47,8 @@ export class RestaurantCardsComponent implements OnInit{
           forkJoin(combinedDataRequests).subscribe(
             combinedDataArray => {
               this.restaurants = combinedDataArray;
-            console.log("Restaurants Loaded: ", this.restaurants); // Set the combined data
+            console.log("Restaurants Loaded: ", this.restaurants); 
+            // Set the combined data
             },
             error => {
               console.error('Error fetching combined data for restaurants:', error);
@@ -125,5 +129,8 @@ export class RestaurantCardsComponent implements OnInit{
   naviagteToRestaruantmenu(id:number)
   {
     this.router.navigate(['app-restruantpage',id])
+  }
+  navigateToFeedbackForm(restaurantId: number) {
+    this.router.navigate(['app-feedback', restaurantId]); // Adjust the route as needed
   }
 }

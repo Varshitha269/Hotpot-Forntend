@@ -30,9 +30,9 @@
 
   <!-- Restaurants List Section -->
   <div class="row restaurant-list">
-    <div class="col-md-3" *ngFor="let restaurant of restaurants" (click)="naviagteToRestaruantmenu(restaurant.restaurant.restaurantID)">
+    <div class="col-md-3" *ngFor="let restaurant of restaurants" >
       <div class="card list-item h-100">
-        <img [src]="getRandomImage(restaurant.menuItems)" class="card-img-top" alt="{{ restaurant.restaurant.name }}" style="height: 200px; object-fit: cover;">
+        <img [src]="getRandomImage(restaurant.menuItems)" class="card-img-top" alt="{{ restaurant.restaurant.name }}" style="height: 200px; object-fit: cover;" (click)="naviagteToRestaruantmenu(restaurant.restaurant.restaurantID)">
         <div class="card-body item-content">
           <h5 class="card-title name">{{ restaurant.restaurant.name }}</h5>
           <p class="card-text food-items">{{getCategories(restaurant.menuItems).join(', ') }}</p>
@@ -45,6 +45,9 @@
           <div class="offer-div">
             <i class="fa-solid fa-tag icon-offer-filled"></i>
             <span class="offer-text">50% off | Use WELCOME50</span>
+          </div>
+          <div class="mt-3 text-center">
+            <button class="btn btn-primary" (click)="navigateToFeedbackForm(restaurant.restaurant.restaurantID)">Add Feedback</button>
           </div>
         </div>
       </div>

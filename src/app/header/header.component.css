@@ -10,3 +10,43 @@
   height: 40px; /* Adjust height as needed */
   font-size: 16px; /* Change font size for better visibility */
 }
+
+.nav-link {
+  color: black; /* Default text color */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.nav-link:hover {
+  color: orange; /* Change color on hover */
+}
+
+.nav-link i {
+  margin-right: 5px; /* Space between icon and text */
+  color: inherit; /* Inherit color from parent */
+  transition: color 0.3s; /* Smooth transition for icon color */
+}
+
+.nav-link:hover i {
+  color: orange; /* Change icon color on hover */
+}
+
+.nav-link {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -10px; /* Move the badge above the cart icon */
+  right: -15px; /* Move the badge to the right edge of the cart icon */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0; /* Remove any extra padding */
+}

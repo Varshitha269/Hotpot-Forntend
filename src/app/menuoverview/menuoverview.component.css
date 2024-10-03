@@ -1,0 +1,281 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif; /* Global font */
+  background-color: #f4f4f4; /* Light gray background */
+}
+
+/* User Table Styling */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  border-radius: 5px;
+  overflow: hidden; /* Rounded corners */
+}
+
+.user-table th, .user-table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #ee82a8; /* Header background color */
+  color: white; /* Header text color */
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f0f8ff; /* Light blue for even rows */
+}
+
+.user-table tr:hover {
+  background-color: #e7f3ff; /* Hover effect */
+}
+
+.user-table td {
+  color: #333; /* Default text color */
+}
+
+/* Button Styling */
+.action-button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* Text color */
+  border: none;
+  width: auto;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition */
+  margin: 5px; /* Add margin to create space between buttons */
+}
+
+.action-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Pagination Button Styling */
+.pagination-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px; /* Increase the horizontal margin for more space */
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Modal Styling */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 500px; /* Limit max width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Close Button in Modal */
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column; /* Column layout for form elements */
+}
+
+label {
+  margin: 10px 0 5px; /* Margin for labels */
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Rounded corners */
+  margin-bottom: 10px; /* Space between inputs */
+}
+
+input:focus, select:focus {
+  border-color: #4CAF50; /* Green border on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Modal Card Styling */
+.card {
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .user-table, .modal-content {
+    width: 100%; /* Full width on small screens */
+  }
+
+  .action-button {
+    width: 100%; /* Full width for buttons on small screens */
+    margin: 5px 0; /* Vertical spacing */
+  }
+}
+
+
+.page-size-selector {
+  margin-bottom: 20px;
+}
+
+.page-size-selector label {
+  margin-right: 10px;
+}
+
+.user-table-container {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between; /* Space between pagination buttons */
+  margin-top: 20px;
+}
+
+.pagination-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px; /* Adjust margin for buttons to reduce gap */
+}
+
+.pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.notification-card {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 15px; /* Some padding */
+  position: fixed; /* Position it fixed */
+  top: 20px; /* 20px from the top */
+  right: 20px; /* 20px from the right */
+  z-index: 1000; /* High z-index to be on top */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+  animation: slide-in 0.5s ease, fade-out 0.5s ease 2.5s forwards; /* Animation */
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.modal {
+  display: block; 
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+

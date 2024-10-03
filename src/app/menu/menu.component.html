@@ -1,0 +1,58 @@
+<div class="container mt-4">
+    
+    
+    <!-- Add Menu Button -->
+    <button class="btn btn-success mb-3" (click)="toggleAddMenu()">
+      Add Menu
+    </button>
+    
+    <!-- Form for Adding/Editing Menu -->
+    <div *ngIf="showForm">
+      <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="col-md-6">
+            <label for="menuName">Menu Name</label>
+            <input type="text" class="form-control" id="menuName" formControlName="menuName" required>
+          </div>
+          <div class="col-md-6">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" formControlName="description" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <button type="button" class="btn btn-secondary mt-3" (click)="showForm = false">Cancel</button>
+      </form>
+    </div>
+  
+    <h3 class="mt-5">Menu List</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Menu ID</th>
+          <th>Restaurant ID</th>
+          <th>Menu Name</th>
+          <th>Description</th>
+          <th>Created Date</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let menu of menus">
+          <td>{{ menu.menuID }}</td>
+          <td>{{ menu.restaurantID }}</td>
+          <td>{{ menu.menuName }}</td>
+          <td>{{ menu.description }}</td>
+          <td>{{ menu.createdDate | date:'short' }}</td>
+          <td>{{ menu.isActive ? 'Yes' : 'No' }}</td>
+          <td>
+            <div style="display: flex; gap: 5px;"> <!-- Flex container for side-by-side buttons -->
+              <button class="btn btn-warning btn-sm" (click)="editMenu(menu)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteMenu(menu.menuID)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

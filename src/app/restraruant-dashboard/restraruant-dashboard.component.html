@@ -1,6 +1,6 @@
 <div class="restaurant-container d-flex">
   <div class="sidebar bg-blue text-white p-3" style="width: 250px; max-height: 100vh; overflow-y: auto;">
-    <h2 class="text-center"><i class="bi bi-shop"></i> Restaurant</h2>
+    <h2 class="text-center"><i class="bi bi-shop"></i> {{name}}</h2>
     <ul class="nav flex-column">
       <li class="nav-item">
         <a (click)="displaySection('reports')" class="nav-link text-white">
@@ -13,26 +13,25 @@
         </a>
       </li>
 
-      <!-- Order Management Dropdown -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-white" id="orderManagementDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <!-- New Menu Item Management Section -->
+      <li class="nav-item">
+        <a (click)="displaySection('menuItemManagement')" class="nav-link text-white">
+          <i class="bi bi-list-check"></i> Menu Item Management
+        </a>
+      </li>
+
+      <!-- Order Management Section -->
+      <li class="nav-item">
+        <a (click)="displaySection('orderHistory')" class="nav-link text-white">
           <i class="bi bi-receipt"></i> Order Management
         </a>
-        <ul class="dropdown-menu" aria-labelledby="orderManagementDropdown">
-          <li><a class="dropdown-item" (click)="displaySection('currentOrders')">Current Orders</a></li>
-          <li><a class="dropdown-item" (click)="displaySection('orderHistory')">Order History</a></li>
-        </ul>
       </li>
 
       <!-- Profile Section -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-white" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <li class="nav-item">
+        <a (click)="displaySection('editRestaurantInfo')" class="nav-link text-white">
           <i class="bi bi-person-circle"></i> Profile
         </a>
-        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-          <li><a class="dropdown-item" (click)="displaySection('editRestaurantInfo')">Edit Restaurant Info</a></li>
-          <li><a class="dropdown-item" (click)="displaySection('editAddress')">Edit Address</a></li>
-        </ul>
       </li>
 
       <li class="nav-item">
@@ -52,37 +51,32 @@
     <!-- Reports Section -->
     <div *ngIf="currentSection === 'reports'">
       <h4>Reports</h4>
-      <!-- Add your Reports content here -->
+      <app-report></app-report>
     </div>
 
     <!-- Menu Management Section -->
     <div *ngIf="currentSection === 'menuManagement'">
       <h4>Menu Management</h4>
-      <!-- Add your Menu Management content here -->
+      <app-menu></app-menu>
+    </div>
+
+    <!-- Menu Item Management Section -->
+    <div *ngIf="currentSection === 'menuItemManagement'">
+      <h4>Menu Item Management</h4>
+      <app-menuitems></app-menuitems>
     </div>
 
     <!-- Order Management Section -->
-    <div *ngIf="currentSection === 'currentOrders'">
-      <h4>Current Orders</h4>
-      <app-ongoingorders></app-ongoingorders>
-      
-    </div>
-
     <div *ngIf="currentSection === 'orderHistory'">
       <h4>Order History</h4>
+      
       <app-listrorders></app-listrorders>
-     
     </div>
 
     <!-- Profile Sections -->
     <div *ngIf="currentSection === 'editRestaurantInfo'">
       <h4>Edit Restaurant Info</h4>
       <app-restaruantprofile></app-restaruantprofile>
-    </div>
-
-    <div *ngIf="currentSection === 'editAddress'">
-      <h4>Edit Address</h4>
-      <app-editrestaruantaddress></app-editrestaruantaddress>
     </div>
 
     <!-- Ratings Section -->

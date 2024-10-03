@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, throwError  } from 'rxjs';
-
+import { PayloadService } from './payload.service';
 
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import { CombinedData, MenuItem, Rating, Restaurant,Menu ,RestaurantwithMenuItem
 })
 export class RestaurantService {
   private apiUrl = 'https://localhost:7121/api';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private pauload:PayloadService) {}
   
 
   getCombinedData1(restaurantId: number): Observable<CombinedData> {
@@ -107,6 +107,25 @@ getAllRestaurants(): Observable<Restaurant[]> {
 
     return this.http.get<number>(`${url}`);
   }
+
+  updateRestarunatDetails(updateData:any):Observable<any>
+  {
+    return this.http.put(`${this.apiUrl}/Restaurant/${updateData.restaurantID}`,updateData);
+  }
+
+  getRestaruantDetails(restaurantID: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Restaurant/${restaurantID}`);
+  }
+
+  private baseUrl = 'https://localhost:7121/api/Restaurant/GetRestaurantIdByName';
+
+  public getRestaurantByName(): Observable<Number> {
+    const restaurantName=this.pauload.extractRestaurantName();
+    const url = `${this.baseUrl}/${restaurantName}`;
+    return this.http.get<Number>(url);
+  }
+
+
 
   }
 

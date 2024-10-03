@@ -1,44 +1,60 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-interface Rating {
-  userName: string;
-  stars: number;
-  menuItem: string;
-  comment?: string; // Optional comment field
-}
+import { RestaurantService } from '../service/restaurant.service';
+import { FeedbackService } from '../service/feedback.service';
+import { Rating } from '../model/datastructure'; // Ensure the correct path
 
 @Component({
   selector: 'app-rratings',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './rratings.component.html',
-  styleUrls: ['./rratings.component.css'] // Corrected from styleUrl to styleUrls
+  styleUrls: ['./rratings.component.css']
 })
 export class RratingsComponent implements OnInit {
   ratings: Rating[] = [];
+  restid: number = 0; // Corrected from Number to number
   aggregateRating: number = 0;
 
-  ngOnInit(): void {
-    // Mock ratings data - replace this with API call to get the real data
-    this.ratings = [
-      { userName: 'John Doe', stars: 5, menuItem: 'Pizza', comment: 'Absolutely delicious! Will order again.' },
-      { userName: 'Jane Smith', stars: 4, menuItem: 'Pasta', comment: 'Tasty and filling.' },
-      { userName: 'Michael Lee', stars: 3, menuItem: 'Burger', comment: 'It was okay.' },
-      { userName: 'Sarah Connor', stars: 4, menuItem: 'Sushi', comment: 'Very fresh!' },
-      { userName: 'Bruce Wayne', stars: 5, menuItem: 'Steak', comment: 'Best steak in town!' },
-      { userName: 'Clark Kent', stars: 2, menuItem: 'Salad', comment: 'Not what I expected.' },
-    ];
+  constructor(
+    private restaurantService: RestaurantService,
+    private feedbackService: FeedbackService
+  ) {}
 
-    // Calculate the aggregate rating for all ratings
-    this.aggregateRating = this.calculateAggregateRating();
+  ngOnInit(): void {
+    this.restaurantService.getRestaurantByName().subscribe({
+      next: (restaurantId) => {
+        this.restid =Number(restaurantId); // Store the restaurant ID
+        console.log(`Restaurant ID: ${this.restid}`);
+
+        // Fetch ratings for the restaurant
+        this.fetchRatings(this.restid);
+      },
+      error: (err) => {
+        console.error('Error fetching restaurant ID:', err);
+      }
+    });
+  }
+
+  // Fetch ratings for the restaurant
+  fetchRatings(restaurantId: number): void {
+    this.feedbackService.getRatingsByRestaurantId(restaurantId).subscribe({
+      next: (ratings) => {
+        this.ratings = ratings; // Assign the fetched ratings to the local array
+        // Calculate the aggregate rating after fetching the ratings
+        this.aggregateRating = this.calculateAggregateRating();
+      },
+      error: (err) => {
+        console.error('Error fetching ratings:', err);
+      }
+    });
   }
 
   // Calculate the average (aggregate) rating for all the ratings
   calculateAggregateRating(): number {
     if (this.ratings.length === 0) return 0;
-    const totalStars = this.ratings.reduce((acc, rating) => acc + rating.stars, 0);
+    const totalStars = this.ratings.reduce((acc, rating) => acc + rating.rating, 0);
     return parseFloat((totalStars / this.ratings.length).toFixed(1)); // Round to 1 decimal place
   }
 }

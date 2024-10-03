@@ -1,0 +1,66 @@
+<div *ngIf="!loading">
+  <h2 style="color: brown;">Menu Management</h2>
+
+  <button (click)="showAddMenuModal()" class="action-button">Add Menu</button>
+
+  <!-- Notification Card -->
+  <div *ngIf="notificationMessage" class="notification-card shake">
+    {{ notificationMessage }}
+  </div>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Menu Name</th>
+        <th>Description</th>
+        <th>Created Date</th>
+        <th>Is Active</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let menu of paginatedMenus">
+        <td>{{ menu.menuName }}</td>
+        <td>{{ menu.description }}</td>
+        <td>{{ menu.createdDate | date }}</td>
+        <td>{{ menu.isActive ? 'Yes' : 'No' }}</td>
+        <td>
+          <button (click)="deleteMenu(menu.menuID)" class="action-button delete-button">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-container">
+    <button (click)="changePage(page - 1)" [disabled]="page === 1" class="pagination-button">Previous</button>
+    <span>Page {{ page }} of {{ totalPages }}</span>
+    <button (click)="changePage(page + 1)" [disabled]="page === totalPages" class="pagination-button">Next</button>
+  </div>
+
+  <!-- Add Menu Modal -->
+  <div *ngIf="isAddMenuModalOpen" class="modal">
+    <div class="modal-content card">
+      <span (click)="closeAddMenuModal()" class="close-button">&times;</span>
+      <h3>Add New Menu</h3>
+      <form [formGroup]="menuForm" (ngSubmit)="createMenu()">
+        <label for="menuName">Menu Name:</label>
+        <input type="text" id="menuName" formControlName="menuName" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+
+        <label>
+          <input type="checkbox" formControlName="isActive"> Is Active
+        </label>
+
+        <button type="submit" class="action-button" [disabled]="menuForm.invalid">Add Menu</button>
+        <button type="button" (click)="closeAddMenuModal()" class="action-button">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-spinner">
+  Loading...
+</div>

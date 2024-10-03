@@ -1,0 +1,118 @@
+<div *ngIf="!loading">
+  <h2 style="color: brown;">User Overview</h2>
+
+  <button (click)="showAddUserModal()" class="action-button">Add New User</button>
+
+  <!-- Notification Card -->
+  <div *ngIf="notificationMessage" class="notification-card shake">
+    {{ notificationMessage }}
+  </div>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Role</th>
+        <th>Is Active</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of paginatedUsers">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phNo }}</td>
+        <td>{{ user.addressLine }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+        <td>
+          <button (click)="viewDetails(user)" class="action-button">View Details</button>
+          <button (click)="deleteUser(user)" class="action-button delete-button">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
+  <!-- Add User Modal -->
+  <div *ngIf="isAddUserModalOpen" class="modal">
+    <div class="modal-content card">
+      <span (click)="closeAddUserModal()" class="close-button">&times;</span>
+      <h3>Add New User</h3>
+      <form [formGroup]="addUserForm" (ngSubmit)="createUser()">
+        
+        <!-- User ID Field (Hidden) -->
+        <input type="hidden" formControlName="userID">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" required>
+
+        <label for="phNo">Phone:</label>
+        <input type="text" id="phNo" formControlName="phNo" required>
+
+        <label for="addressLine">Address:</label>
+        <input type="text" id="addressLine" formControlName="addressLine" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" formControlName="city" required>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" formControlName="state" required>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" formControlName="postalCode" required>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" formControlName="country" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" formControlName="password" required>
+
+        <label for="role">Role:</label>
+        <select id="role" formControlName="role" required>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+          <option value="restaurant">Restaurant</option>
+        </select>
+
+        <button type="submit" class="action-button" [disabled]="addUserForm.invalid">Add User</button>
+        <button type="button" (click)="closeAddUserModal()" class="action-button">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- User Details Modal -->
+  <div *ngIf="selectedUser" class="modal">
+    <div class="modal-content card">
+      <span (click)="cancel()" class="close-button">&times;</span>
+      <h3>User Details</h3>
+      <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+      <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+      <p><strong>Phone:</strong> {{ selectedUser.phNo }}</p>
+      <p><strong>Address:</strong> {{ selectedUser.addressLine }}</p>
+      <p><strong>City:</strong> {{ selectedUser.city }}</p>
+      <p><strong>State:</strong> {{ selectedUser.state }}</p>
+      <p><strong>Postal Code:</strong> {{ selectedUser.postalCode }}</p>
+      <p><strong>Country:</strong> {{ selectedUser.country }}</p>
+      <p><strong>Role:</strong> {{ selectedUser.role }}</p>
+      <p><strong>Status:</strong> {{ selectedUser.isActive ? 'Active' : 'Inactive' }}</p>
+      <button (click)="cancel()" class="action-button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-spinner">
+  Loading...
+</div>

@@ -1,0 +1,55 @@
+.admin-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .card h3 {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #666;
+  }
+  .card {
+    /* ... other styles ... */
+    cursor: pointer; /* Add this to make the card clickable */
+  }
+  
+  .card:hover {
+    background-color: #e298c9; /* Change the background color on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+  }

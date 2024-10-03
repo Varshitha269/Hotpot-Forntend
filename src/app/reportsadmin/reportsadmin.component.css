@@ -1,0 +1,191 @@
+body {  
+  font-family: Arial, sans-serif;  
+  background-color: #f4f7fa;  
+  margin: 0;  
+  padding: 20px;  
+}  
+
+.reports-dashboard {  
+  max-width: 1200px;  
+  margin: auto;  
+  background: #fff;  
+  border-radius: 8px;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+  padding: 20px;  
+  position: relative;
+  border: 5px solid #ccc;  /* Added Border */
+  overflow: hidden;
+  animation: dashboard-slide 1s ease-out;
+}  
+
+@keyframes dashboard-slide {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
+}
+
+h2 {  
+  text-align: center;  
+  color: #333;  
+  font-size: 32px;  
+  margin-bottom: 10px;  
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}  
+
+.marquee {  
+  font-size: 20px;  
+  color: #ff9800;  
+  background-color: #333;  
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px 0;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.statistics-container {  
+  display: flex;  
+  justify-content: space-between;  
+  margin-bottom: 20px;  
+}  
+
+.order-statistics, .site-statistics {  
+  flex: 1;  
+  margin: 0 10px;  
+  background: #f0f9ff;  
+  border-radius: 8px;  
+  padding: 15px;  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);  
+  border: 3px solid #dedede;  /* Added Border */
+  transition: transform 0.3s ease;
+}  
+
+.order-statistics:hover, .site-statistics:hover {
+  transform: scale(1.05);  /* Hover effect */
+}
+
+h3 {  
+  color: #555;  
+  margin-bottom: 15px;  
+  font-size: 20px;  
+  text-align: center;
+  position: relative;
+}  
+
+h3:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background-color: #333;
+}
+
+.stat-card {  
+  padding: 10px;  
+  margin-bottom: 10px;  
+  border-radius: 5px;  
+  display: flex;  
+  justify-content: space-between;  
+  color: white;  
+  font-weight: bold;  
+  height: 40px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, border 0.3s ease; /* Added transition */
+}  
+
+.stat-card:hover {
+  border: 2px solid #333;  /* Hover effect */
+}
+
+.received { background-color: #4caf50; }  
+.processing { background-color: #ff9800; }  
+.delivered { background-color: #2196f3; }  
+.cancelled { background-color: #f44336; }  
+.restaurant { background-color: #8bc34a; }  
+.delivery-people { background-color: #de9240; }  
+.users { background-color: #3f51b5; }  
+.earnings { background-color: #9c27b0; } 
+
+.activerest { background-color: #ec68a8; }  
+.inactiverest { background-color: #913fd4; }  
+.activeuser { background-color: #16bd82; }  
+.inactiveuser { background-color: #f05844; }  
+
+.charts-container {  
+  display: flex;  
+  flex-wrap: wrap;  
+  justify-content: space-around; /* Space between the charts */  
+}  
+
+.chart {  
+  flex: 0 1 calc(40% - 10px); /* Set each chart to take 50% of the row minus spacing */  
+  margin-bottom:30px; /* Space below each chart */  
+  box-sizing: content-box; /* Include padding and border in element's total width and height */  
+  border: 2px solid #ccc;  /* Added border to chart container */
+  padding: 10px; /* Added padding inside chart */
+  border-radius: 8px; /* Rounded borders */
+  background-color: #f8f8f8; /* Light background for charts */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}  
+
+.chart canvas {  
+  width: 100%; /* Ensures canvas takes full width of chart container */  
+  height: auto; /* Maintain aspect ratio */  
+}  
+
+.small-chart {  
+  flex: 0 1 calc(40% - 10px); /* Set small charts to take 40% of the row */  
+  margin-bottom: 30px; /* Space below each chart */  
+}
+
+.chart:hover {
+  transform: scale(1.05);  /* Add hover effect to charts */
+  transition: transform 0.3s ease;
+}
+
+h3 {  
+  text-align: center; /* Center the chart titles */  
+}
+
+h3:after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: #333;
+  margin: 8px auto;
+  border-radius: 2px;
+}
+
+.reports-dashboard {  
+  padding: 20px;  
+}  
+
+.period-buttons {  
+  margin-bottom: 20px;  
+}  
+
+.period-buttons button {  
+  margin-right: 10px;  
+  padding: 10px 15px;  
+  background-color: #4CAF50;  
+  color: white;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;  
+}  
+
+.period-buttons button:hover {  
+  background-color: #45a049;  
+}  
+
+/* .charts-container {  
+  margin-top: 20px;  
+} */

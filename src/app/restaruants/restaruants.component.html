@@ -16,11 +16,8 @@
             {{ restaurant.menuItemDescription }}
           </p>
           <div class="info-div d-flex justify-content-between">
-            <div class="rating">
-              <i class="fa-solid fa-star"></i> {{ restaurant.averageRating.toFixed(1) }}
-            </div>
             <div class="price">
-              ₹{{ restaurant.price.toFixed(1) }} FOR TWO
+              <b>₹{{ restaurant.price.toFixed(1) }}</b>
             </div>
           </div>
           <div class="offer-div">

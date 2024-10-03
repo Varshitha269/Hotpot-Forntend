@@ -1,0 +1,93 @@
+<div class="container mt-5">
+  <h2 class="text-center">Menu Items</h2>
+
+  <div class="form-group">
+    <label for="menuSelect">Select Menu:</label>
+    <select id="menuSelect" class="form-control" (change)="onMenuSelect($event)">
+      <option value="">Select a menu</option>
+      <option *ngFor="let menu of menus" [value]="menu.menuID">{{ menu.menuName }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="menuItems.length > 0">
+    <h3 class="mt-4">Menu Items</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of menuItems">
+          <td>{{ item.itemName }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.price | currency }}</td>
+          <td>{{ item.category }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="editMenuItem(item)">Edit</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteMenuItem(item.menuItemID)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn btn-primary mt-4" (click)="toggleForm()">
+    {{ showForm ? 'Cancel' : 'Add Menu Item' }}
+  </button>
+
+  <div *ngIf="showForm" class="mt-4">
+    <h3>Add/Edit Menu Item</h3>
+    <form [formGroup]="menuItemForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" class="form-control" formControlName="itemName">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <input type="text" id="category" class="form-control" formControlName="category">
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" class="form-control" formControlName="price">
+      </div>
+      <div class="form-group">
+        <label for="specialDietaryInfo">Special Dietary Info:</label>
+        <input type="text" id="specialDietaryInfo" class="form-control" formControlName="specialDietaryInfo">
+      </div>
+      <div class="form-group">
+        <label for="tasteInfo">Taste Info:</label>
+        <input type="text" id="tasteInfo" class="form-control" formControlName="tasteInfo">
+      </div>
+      <div class="form-group">
+        <label for="nutritionalInfo">Nutritional Info:</label>
+        <input type="text" id="nutritionalInfo" class="form-control" formControlName="nutritionalInfo">
+      </div>
+      <div class="form-group">
+        <label for="availabilityTime">Availability Time:</label>
+        <input type="text" id="availabilityTime" class="form-control" formControlName="availabilityTime">
+      </div>
+      <div class="form-group">
+        <label for="isInStock">In Stock:</label>
+        <select id="isInStock" class="form-control" formControlName="isInStock">
+          <option [ngValue]="true">Yes</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" class="form-control" formControlName="imageUrl">
+      </div>
+
+      <button type="submit" class="btn btn-success mt-2">{{ editingMenuItemId ? 'Update Menu Item' : 'Add Menu Item' }}</button>
+    </form>
+  </div>
+</div>

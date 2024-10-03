@@ -1,0 +1,93 @@
+<div class="reports-dashboard">  
+  <h2>Reports Dashboard</h2>  
+  
+  <marquee class="announcement" direction="left">Stay updated with the latest statistics and performance reports.</marquee>
+  
+  <div class="statistics-container">  
+    <div class="order-statistics">  
+      <h3>Order Statistics</h3>  
+      <div class="stat-card received">  
+        <span>Received</span>  
+        <span>{{ orderStats.received }}</span>  
+      </div>  
+      <div class="stat-card processing">  
+        <span>Processing</span>  
+        <span>{{ orderStats.processing }}</span>  
+      </div>  
+      <div class="stat-card delivered">  
+        <span>Delivered</span>  
+        <span>{{ orderStats.delivered }}</span>  
+      </div>  
+      <div class="stat-card cancelled">  
+        <span>Cancelled</span>  
+        <span>{{ orderStats.cancelled }}</span>  
+      </div>  
+    </div>  
+
+    <div class="order-statistics">  
+      <h3>Restaurant Statistics</h3>  
+      <div class="stat-card activerest">  
+        <span>Active Restaurants</span>  
+        <span>{{ restaurantStats.activeRestaurants }}</span>  
+      </div>  
+      <div class="stat-card inactiverest">  
+        <span>Inactive Restaurants</span>  
+        <span>{{ restaurantStats.inactiveRestaurants }}</span>  
+      </div> 
+      <h3>Users Statistics</h3>  
+      <div class="stat-card activeuser">  
+        <span>Active Users</span>  
+        <span>{{ userStats.activeUsers }}</span>  
+      </div>  
+      <div class="stat-card inactiveuser">  
+        <span>Inactive Users</span>  
+        <span>{{ userStats.inactiveUsers }}</span>  
+      </div>  
+    </div>  
+
+    <div class="site-statistics">  
+      <h3>Payments Statistics</h3>  
+      <div class="stat-card restaurant">  
+        <span>Completed</span>  
+        <span>{{ paymentStats.completedPayments }}</span>  
+      </div>  
+      <div class="stat-card delivery-people">  
+        <span>Pending</span>  
+        <span>{{ paymentStats.pendingPayments }}</span>  
+      </div>  
+      <div class="stat-card users">  
+        <span>Failed</span>  
+        <span>{{ paymentStats.failedPayments }}</span>  
+      </div>  
+    </div>  
+  </div>  
+  <div class="period-buttons"> 
+    <h2>Revenue Reports Generated based on Period..!!!</h2> 
+    <button (click)="onPeriodChange('daily')">Daily</button>  
+    <button (click)="onPeriodChange('weekly')">Weekly</button>  
+    <button (click)="onPeriodChange('monthly')">Monthly</button>  
+  </div>
+  <div class="charts-container">  
+    <h3>Revenue Chart</h3>  
+    <canvas id="revenueChart"></canvas>  
+  </div> 
+<br><br><br>
+  <div class="charts-container">  
+    <div class="chart">  
+      <h3>Order Chart</h3>  
+      <canvas id="orderChart"></canvas>  
+    </div>  
+    <div class="chart small-chart">  
+      <h3>Restaurant Chart</h3>  
+      <canvas id="restaurantChart"></canvas>  
+    </div>  
+    <div class="chart ">  
+      <h3>User Chart</h3>  
+      <canvas id="userChart"></canvas>  
+    </div>  
+    <div class="chart small-chart">  
+      <h3>Payment Chart</h3>  
+      <canvas id="paymentChart"></canvas>  
+    </div>  
+  </div>  
+</div>

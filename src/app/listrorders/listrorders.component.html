@@ -11,14 +11,10 @@
             <label for="filterStatus" class="form-label">Filter by Status:</label>
             <select id="filterStatus" class="form-control" [(ngModel)]="filterStatus">
                 <option value="">All</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Pending">Pending</option>
-                <option value="Cancelled">Cancelled</option>
+                <option value="delivered">Delivered</option>
+                <option value="pending">Pending</option>
+                <option value="cancelled">Cancelled</option> <!-- Ensure this matches your data -->
             </select>
-        </div>
-        <div class="col">
-            <label for="filterMenuItem" class="form-label">Filter by Menu Item:</label>
-            <input type="text" id="filterMenuItem" class="form-control" [(ngModel)]="filterMenuItem" placeholder="Menu Item Name">
         </div>
     </div>
 
@@ -29,22 +25,18 @@
                     <tr>
                         <th scope="col">Order ID</th>
                         <th scope="col">User ID</th>
-                        <th scope="col">Menu Item</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Order Status</th>
                         <th scope="col">Order Date</th>
-                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let order of filteredOrders">
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.userId }}</td>
-                        <td>{{ order.menuItem }}</td>
-                        <td>{{ order.quantity }}</td>
-                        <td>{{ order.price | currency:'INR':'symbol':'1.2-2' }}</td>
-                        <td>{{ order.orderDate | date:'shortDate' }}</td>
-                        <td>{{ order.status }}</td>
+                        <td>{{ order.orderID }}</td>
+                        <td>{{ order.userID }}</td>
+                        <td>{{ order.totalAmount | currency:'INR':'symbol':'1.2-2' }}</td>
+                        <td>{{ order.orderStatus }}</td>
+                        <td>{{ order.deliveryDate | date:'shortDate' }}</td>
                     </tr>
                 </tbody>
             </table>

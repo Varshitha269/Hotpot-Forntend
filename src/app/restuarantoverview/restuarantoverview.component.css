@@ -1,0 +1,248 @@
+
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* User Table Styling */
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .user-table th, .user-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .user-table th {
+    background-color: #ee82a8;
+    color: white;
+  }
+  
+  .user-table tr:nth-child(even) {
+    background-color: #f0f8ff;
+  }
+  
+  .user-table tr:hover {
+    background-color: #e7f3ff;
+  }
+  
+  .user-table td {
+    color: #333;
+  }
+  
+  /* Button Styling */
+  .action-button {
+    background-color: #579e31;
+    color: white;
+    border: none;
+    width: auto;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin: 5px;
+  }
+  
+  .action-button:hover {
+    background-color: #dd4889;
+  }
+  
+  /* Pagination Button Styling */
+  .pagination-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  .pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Modal Styling */
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Close Button in Modal */
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin: 10px 0 5px;
+  }
+  
+  input, textarea, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* Modal Card Styling */
+  .card {
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .user-table, .modal-content {
+      width: 100%;
+    }
+  
+    .action-button {
+      width: 100%;
+      margin: 5px 0;
+    }
+  }
+  
+  /* Notification Card */
+  .notification-card {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    animation: slide-in 0.5s ease, fade-out 0.5s ease 2.5s forwards;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
+  /* Pagination Container */
+  .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  
+  /* Scrollable Modal */
+  .scrollable-modal {
+    overflow-y: auto;
+  }
+  /* Modal container */
+.modal {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scrolling if the modal content is larger than the viewport */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh; /* Restrict height to prevent overflow */
+    overflow-y: auto; /* Enable scrolling if content exceeds max-height */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Scrollable Modal */
+  .scrollable-modal {
+    overflow-y: auto;
+  }
+  
+  /* Close button */
+  .close-button {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* General input styling */
+  input, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  

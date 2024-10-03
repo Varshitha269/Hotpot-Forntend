@@ -1,0 +1,24 @@
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+  }
+  
+  .star {
+    font-size: 2rem;
+    color: #d3d3d3;
+    cursor: pointer;
+  }
+  
+  .star:hover,
+  .star:focus {
+    color: gold;
+  }
+  
+  .star:checked ~ .star {
+    color: gold;
+  }
+  
+  .star:checked {
+    color: gold;
+  }
+  

@@ -1,0 +1,120 @@
+<div class="user-management">
+  <h2>Admin Management</h2>
+  <button (click)="showAddUserForm()" class="add-user-btn">+ Add User</button>
+  <div class="filter-container">
+    <div class="filter-group">
+      <label for="roleFilter">Filter by Role:</label>
+      <select id="roleFilter" [(ngModel)]="selectedRole" (change)="filterByRole()">
+        <option value="">All</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+  
+    <div class="filter-group">
+      <label for="activeFilter">Filter by Status:</label>
+      <select id="activeFilter" [(ngModel)]="activeFilter" (change)="filterByActiveStatus()">
+        <option value="">All</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+  </div>
+  
+  
+  
+
+  <table>
+      <thead>
+          <tr>
+              <th>SL</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let user of filteredUsers; let i = index">
+              <td>{{ (page - 1) * pageSize + i + 1 }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phNo }}</td>
+              <td [ngClass]="{'admin-role': user.role === 'Admin', 'restaurant-role': user.role === 'Restaurant', 'user-role': user.role === 'User'}">{{ user.role }}</td>
+              <td>{{ user.isActive ? 'Active' : 'Inactive' }}</td>
+              <td>
+                  <span class="btn edit" (click)="editUser(user)">Edit</span>
+                  <span class="btn deactivate" (click)="user.isActive ? deactivateUser(user) : activateUser(user)">
+                      {{ user.isActive ? 'Deactivate' : 'Activate' }}
+                  </span>
+                  <span class="btn delete" (click)="deleteUser(user)">Delete</span>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  <div class="pagination">  
+    <button (click)="changePage(page - 1)" [disabled]="page === 1">Previous</button>  
+    <span>Page {{ page }}</span>  
+    <button (click)="changePage(page + 1)" [disabled]="(page * pageSize) >= users.length">Next</button>  
+  </div>
+  
+
+  <form *ngIf="showForm" [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+      <h2>{{ editingUser ? 'Edit' : 'Add' }} User</h2>
+
+      <div class="form-group">
+          <input formControlName="username" placeholder="Username" required />
+          <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" class="error">
+              Username is required.
+          </div>
+      </div>
+
+      <div class="form-group">
+          <input formControlName="email" placeholder="Email" required type="email" />
+          <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error">
+              Valid email is required.
+          </div>
+      </div>
+
+      <div class="form-group">
+          <input formControlName="password" placeholder="Password" required type="password" />
+          <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="error">
+              Password is required.
+          </div>
+      </div>
+
+      <div class="form-group">
+          <input formControlName="phNo" placeholder="Phone Number" />
+      </div>
+
+      <div class="form-group">
+          <input formControlName="addressLine" placeholder="Address Line" />
+      </div>
+
+      <div class="form-group">
+          <input formControlName="city" placeholder="City" />
+      </div>
+
+      <div class="form-group">
+          <input formControlName="state" placeholder="State" />
+      </div>
+
+      <div class="form-group">
+          <input formControlName="postalCode" placeholder="Postal Code" />
+      </div>
+
+      <div class="form-group">
+          <input formControlName="country" placeholder="Country" />
+      </div>
+
+      <div class="form-group">
+          <select formControlName="role" required>
+              <option value="" disabled>Select Role</option>
+              <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+      </div>
+
+      <button type="submit" [disabled]="userForm.invalid">{{ editingUser ? 'Update' : 'Add' }} User</button>
+  </form>
+</div>

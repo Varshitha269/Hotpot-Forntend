@@ -1,0 +1,97 @@
+<div *ngIf="!loading">
+    <h2 style="color: brown;">Restaurant Management</h2>
+  
+    <button (click)="showAddRestaurantForm()" class="action-button">Add Restaurant</button>
+  
+    <!-- Notification Card -->
+    <div *ngIf="notificationMessage" class="notification-card shake">
+      {{ notificationMessage }}
+    </div>
+  
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Operating Hours</th>
+          <th>Created Date</th>
+          <th>Is Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let restaurant of paginatedRestaurants">
+          <td>{{ restaurant.name }}</td>
+          <td>{{ restaurant.description }}</td>
+          <td>{{ restaurant.phNo }}</td>
+          <td>{{ restaurant.email }}</td>
+          <td>{{ restaurant.operatingHours }}</td>
+          <td>{{ restaurant.createdDate | date }}</td>
+          <td>{{ restaurant.isActive ? 'Yes' : 'No' }}</td>
+          <td>
+            <button (click)="deleteRestaurant(restaurant.restaurantID)" class="action-button delete-button">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Pagination Controls -->
+    <div class="pagination-container">
+      <button (click)="changePage(page - 1)" [disabled]="page === 1" class="pagination-button">Previous</button>
+      <span>Page {{ page }} of {{ totalPages }}</span>
+      <button (click)="changePage(page + 1)" [disabled]="page === totalPages" class="pagination-button">Next</button>
+    </div>
+  
+    <!-- Add Restaurant Modal -->
+<div *ngIf="isAddRestaurantFormOpen" class="modal">
+    <div class="modal-content card scrollable-modal">
+      <span (click)="closeAddRestaurantForm()" class="close-button">&times;</span>
+      <h3>Add New Restaurant</h3>
+      <form [formGroup]="restaurantForm" (ngSubmit)="createRestaurant()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" required>
+  
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+  
+        <label for="phNo">Phone Number:</label>
+        <input type="text" id="phNo" formControlName="phNo">
+  
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email">
+  
+        <label for="operatingHours">Operating Hours:</label>
+        <input type="text" id="operatingHours" formControlName="operatingHours">
+  
+        <label for="addressLine">Address Line:</label>
+        <input type="text" id="addressLine" formControlName="addressLine">
+  
+        <label for="city">City:</label>
+        <input type="text" id="city" formControlName="city">
+  
+        <label for="state">State:</label>
+        <input type="text" id="state" formControlName="state">
+  
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" formControlName="postalCode">
+  
+        <label for="country">Country:</label>
+        <input type="text" id="country" formControlName="country">
+  
+        <label>
+          <input type="checkbox" formControlName="isActive"> Is Active
+        </label>
+  
+        <button type="submit" class="action-button" [disabled]="restaurantForm.invalid">Add Restaurant</button>
+        <button type="button" (click)="closeAddRestaurantForm()" class="action-button">Cancel</button>
+      </form>
+    </div>
+  </div>
+  
+  
+  <div *ngIf="loading" class="loading-spinner">
+    Loading...
+  </div>
+  

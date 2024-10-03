@@ -1,0 +1,136 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Restaurant Report Dashboard</h1>
+
+    <div class="row">
+        <!-- Total Menu Items -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-4">
+                <div class="card-header">Total Menu Items</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totalMenuItems }}</h5>
+                    <p class="card-text">Total number of items on the menu.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Categories -->
+        <div class="col-md-4">
+            <div class="card text-white bg-secondary mb-4">
+                <div class="card-header">Total Categories</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totalCategories }}</h5>
+                    <p class="card-text">Total number of categories in the menu.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Orders -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-4">
+                <div class="card-header">Total Orders</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ totalOrders }}</h5>
+                    <p class="card-text">Total number of orders placed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Total Revenue -->
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-4">
+                <div class="card-header">Total Revenue</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ totalRevenue | currency }}</h5>
+                    <p class="card-text">Total revenue generated.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Order Value -->
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-4">
+                <div class="card-header">Average Order Value</div>
+                <div class="card-body">
+                    <h5 class="card-title">${{ avgOrderValue | currency }}</h5>
+                    <p class="card-text">Average value of each order placed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regular Users -->
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-4">
+                <div class="card-header">Regular Users</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ regularUsers.length }}</h5>
+                    <p class="card-text">Number of users who ordered frequently.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Charts Display -->
+        <div class="col-md-6">
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Average Order Value Line Chart -->
+        <div class="col-md-12">
+            <h3 class="text-center">Average Order Value Over Time</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Top Selling Items -->
+        <div class="col-md-6">
+            <h3>Top Selling Items</h3>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of topSellingItems">
+                    {{ item.itemName }} sold
+                </li>
+            </ul>
+        </div>
+
+        <!-- Least Selling Items -->
+        <div class="col-md-6">
+            <h3>Least Selling Items</h3>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of leastSellingItems">
+                    {{ item.itemName }} sold
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Regular Users Table -->
+        <div class="col-md-12">
+            <h3>Regular Users</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Orders Placed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of regularUsers">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.orderCount }}</td> <!-- Adjusted to match your backend structure -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

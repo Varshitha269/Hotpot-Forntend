@@ -6,6 +6,8 @@ import { EditprofileComponent } from '../editprofile/editprofile.component';
 import { ListordersComponent } from '../listorders/listorders.component';
 import { ListpaymentsComponent } from '../listpayments/listpayments.component';
 import { ChangeAddressComponent } from '../change-address/change-address.component';
+import { PayloadService } from '../service/payload.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,10 +24,9 @@ export class UserprofileComponent {
   displaySection(section: string): void {
     this.currentSection = section;
   }
-
+constructor(private payload:PayloadService,private router:Router){}
   logout(): void {
-    // Implement your logout logic here
-    console.log('Logging out...');
+    this.payload.logout();
   }
   
 

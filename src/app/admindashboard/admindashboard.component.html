@@ -1,0 +1,82 @@
+<div class="restaurant-container d-flex">
+  <!-- Sidebar -->
+  <div class="sidebar bg-blue text-white p-3" style="width: 250px; max-height: 100vh; overflow-y: auto;">
+    <h2 class="text-center"><i class="bi bi-shop"></i> Admin Panel</h2>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a (click)="displaySection('adminReports')" class="nav-link text-white">
+          <i class="bi bi-graph-up"></i> Admin Reports
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('userOverview')" class="nav-link text-white">
+          <i class="bi bi-person-lines-fill"></i> User Overview
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('restaurantOverview')" class="nav-link text-white">
+          <i class="bi bi-shop-window"></i> Restaurant Overview
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('menuManagement')" class="nav-link text-white">
+          <i class="bi bi-card-list"></i> Menu Management
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('menuOverview')" class="nav-link text-white">
+          <i class="bi bi-list-check"></i> Menu Item Overview
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="displaySection('restaurantReports')" class="nav-link text-white">
+          <i class="bi bi-clipboard-data"></i> Restaurant Reports Overview
+        </a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link text-white">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content p-4">
+    <!-- Admin Reports Section -->
+    <div *ngIf="currentSection === 'adminReports'">
+      <h4>Admin Reports</h4>
+      <app-reportsadmin></app-reportsadmin>
+    </div>
+
+    <!-- User Overview Section -->
+    <div *ngIf="currentSection === 'userOverview'">
+      <h4>User Overview</h4>
+      <app-customeroverview></app-customeroverview>
+    </div>
+
+    <!-- Restaurant Overview Section -->
+    <div *ngIf="currentSection === 'restaurantOverview'">
+      <h4>Restaurant Overview</h4>
+      <app-restuarantoverview></app-restuarantoverview>
+    </div>
+
+    <!-- Menu Management Section -->
+    <div *ngIf="currentSection === 'menuManagement'">
+      <h4>Menu Management</h4>
+      <app-menumanagement></app-menumanagement>
+    </div>
+
+    <!-- Menu Item Overview Section -->
+    <div *ngIf="currentSection === 'menuOverview'">
+      <h4>Menu Item Overview</h4>
+      <app-menuitem-overview></app-menuitem-overview>
+    </div>
+
+    <!-- Restaurant Reports Overview Section -->
+    <div *ngIf="currentSection === 'restaurantReports'">
+      <h4>Restaurant Reports Overview</h4>
+      <app-report></app-report>
+    </div>
+  </div>
+</div>

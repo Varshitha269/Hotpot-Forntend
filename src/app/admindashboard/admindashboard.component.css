@@ -1,0 +1,60 @@
+.restaurant-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: rgb(126, 126, 126); /* Theme color */
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    flex: 1;
+  }
+  
+  .sidebar ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #d65576; /* Hover color */
+  }
+  
+  .dropdown-menu {
+    background-color: rgb(239, 124, 155); /* Dropdown background */
+    border: none;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #d65576; /* Hover color */
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+  }
+  

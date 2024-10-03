@@ -1,0 +1,12 @@
+.container {
+    max-width: 800px;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .btn {
+    margin-right: 5px;
+  }
+  

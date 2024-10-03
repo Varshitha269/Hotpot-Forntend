@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CombinedData, MenuItem, Category,Cart } from '../model/datastructure';
 import { RestaurantService } from '../service/restaurant.service';
 import { CartService } from '../service/cart.service';
+import { PayloadService } from '../service/payload.service';
 
 @Component({
   selector: 'app-restruantpage',
@@ -22,7 +23,7 @@ export class RestruantpageComponent implements OnInit {
 
   cart:Cart[]=[];
 
-  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService,private cartservice:CartService,) {
+  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService,private cartservice:CartService,private router:Router,private payload:PayloadService) {
     this.loadCartDetails();
   }
 
@@ -164,9 +165,16 @@ fetchCombinedData(restaurantId: number) {
 
   private addToCart(item: MenuItem): void {
     console.log('Item added to cart:', item);
+    const userId = this.payload.getUserId();
+    if (!userId) {
+      // Redirect to login if the user ID is null
+      alert('You need to log in to add items to the cart.');
+      this.router.navigate(['/app-login']); // Assuming '/login' is your login route
+      return;
+    }
     const newCartItem: Cart = {
       cartID: 0,
-      userID: 1,
+      userID: Number(userId),
       menuItemID: item.menuItemID,
       quantity: 1,
       price: item.price,
