@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MenuItem } from '../model/datastructure'; // Adjust the import based on your project structure
+import { MenuItem ,Menu} from '../model/datastructure'; // Adjust the import based on your project structure
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,13 @@ import { MenuItem } from '../model/datastructure'; // Adjust the import based on
 export class MenuitemjoinedService {
 
   private apiUrl = 'https://localhost:7121/api/MenuItem'; // Base URL for the API
+  private menuUrl = `https://localhost:7121/api/Menu`;
+
+  getAllMenus(): Observable<Menu[]> {
+    return this.http.get<Menu[]>(`${this.menuUrl}`); // Adjust the endpoint as necessary
+  }
+
+
 
   constructor(private http: HttpClient) {}
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../model/datastructure';
+import { Menu } from '../model/datastructure';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,11 @@ export class MenuItemService {
   constructor(private http: HttpClient) {}
 
   // Define the MenuItem interface here
+  private menuUrl = `https://localhost:7121/api/Menu`;
+
+  getAllMenus(): Observable<Menu[]> {
+    return this.http.get<Menu[]>(`${this.menuUrl}`); // Adjust the endpoint as necessary
+  }
   
 
   // Get all menu items

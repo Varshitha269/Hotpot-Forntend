@@ -9,7 +9,7 @@
              'red': rating.rating < 3
            }">
         <div class="card-body">
-          <h5 class="card-title">User{{ rating.userID }}</h5> <!-- Assuming you want to display the user ID -->
+          <h5 class="card-title">UserId:{{ rating.userID }}</h5> <!-- Assuming you want to display the user ID -->
           <p class="card-text">
             <strong>Rating: </strong>
             <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">

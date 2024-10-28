@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { PayloadService } from '../service/payload.service'; // Import the PayloadService
+import { PayloadService } from '../service/payload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authservice: AuthService,
-    private payloadService: PayloadService // Inject PayloadService
+    private payloadService: PayloadService
   ) {}
 
   ngOnInit(): void {
@@ -65,20 +66,32 @@ export class LoginComponent implements OnInit {
               console.error('Unable to retrieve role from the token.');
             }
           } else {
-            alert("Invalid details. Please check and try again.");
+            Swal.fire({
+              icon: 'error',
+              title: 'Invalid details',
+              text: 'Please check your details and try again.',
+            });
             console.error('Invalid response');
           }
         },
         error: (error: any) => {
           console.error(error);
-          alert("Login failed. Please check your credentials.");
+          Swal.fire({
+            icon: 'error',
+            title: 'Login failed',
+            text: 'Please check your credentials.',
+          });
         },
         complete: () => {
           console.log('Request completed');
         },
       });
     } else {
-      alert("Invalid details. Please check and try again.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid details',
+        text: 'Please check your form values and try again.',
+      });
       console.error('Invalid form values');
     }
   }
@@ -95,7 +108,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/app-restraruant-dashboard']); // Restaurant dashboard
         break;
       default:
-        alert('Unknown role. Please contact support.');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Unknown role',
+          text: 'Please contact support for assistance.',
+        });
         console.error('Unknown role:', role);
         break;
     }

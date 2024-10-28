@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem } from '../model/datastructure';
 import { NotificationService } from '../service/notification.service';
-import { MenuitemjoinedService } from '../service/menuitemjoined.service';
+import { MenuItemService } from '../service/menuitem.service';
+import { Menu } from '../model/datastructure';
 
 @Component({
   selector: 'app-menuitem-overview',
@@ -14,36 +15,46 @@ import { MenuitemjoinedService } from '../service/menuitemjoined.service';
 })
 export class MenuOverviewComponent implements OnInit {
   menuItems: MenuItem[] = [];
-  displayedMenuItems: MenuItem[] = []; // Items to display on the current page
+  displayedMenuItems: MenuItem[] = [];
   selectedMenuItem: MenuItem | null = null;
   isAddMenuItemModalOpen: boolean = false;
   notificationMessage: string | null = null;
   loading: boolean = false;
+  menus: Menu[] = []; 
   
-  
-  // Pagination properties
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
 
-  // Reactive Form for adding a new menu item
   addMenuItemForm: FormGroup;
 
   constructor(
-    private menuItemService: MenuitemjoinedService,
+    private menuItemService: MenuItemService,
     private fb: FormBuilder,
     private notificationService: NotificationService
   ) {
     this.addMenuItemForm = this.fb.group({
-      name: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
+      menuItemID: [0],
+      menuID: [0, Validators.required],
+      itemName: ['', Validators.required],
       description: ['', Validators.required],
-      imageUrl: ['', Validators.required]
+      category: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0)]],
+      specialDietaryInfo: [''],
+      tasteInfo: [''],
+      nutritionalInfo: [''],
+      availabilityTime: [''],
+      isInStock: [true],
+      imageUrl: ['', Validators.required],
+      isAvailable: [true],
+      discounts: [0],
+      createdDate: [new Date()]
     });
   }
 
   ngOnInit(): void {
     this.fetchMenuItems();
+    this.fetchMenus();
     this.notificationService.notification$.subscribe(message => {
       this.notificationMessage = message;
     });
@@ -54,12 +65,23 @@ export class MenuOverviewComponent implements OnInit {
     this.menuItemService.getAllMenuItems().subscribe({
       next: (menuItems: MenuItem[]) => {
         this.menuItems = menuItems;
-        this.totalItems = menuItems.length; // Total items for pagination
+        this.totalItems = menuItems.length; 
         this.updateDisplayedItems();
         this.loading = false;
       },
       error: (err) => {
         console.error('Error fetching menu items:', err);
+      }
+    });
+  }
+
+  fetchMenus(): void {
+    this.menuItemService.getAllMenus().subscribe({
+      next: (menus: Menu[]) => {
+        this.menus = menus;
+      },
+      error: (err) => {
+        console.error('Error fetching menus:', err);
       }
     });
   }
@@ -81,8 +103,9 @@ export class MenuOverviewComponent implements OnInit {
   createMenuItem(): void {
     if (this.addMenuItemForm.valid) {
       const menuItemData = this.addMenuItemForm.value;
-      this.menuItemService.addMenuItem(menuItemData).subscribe({
-        next: (menuItem) => {
+      console.log('Menu item added:', menuItemData);
+      this.menuItemService.createMenuItem(menuItemData).subscribe({
+        next: () => {
           this.fetchMenuItems();
           this.closeAddMenuItemModal();
           this.notificationService.show('New menu item has been added successfully!');
@@ -95,21 +118,21 @@ export class MenuOverviewComponent implements OnInit {
   }
 
   deleteMenuItem(menuItem: MenuItem): void {
-    this.menuItemService.deleteMenuItem(menuItem.menuItemID).subscribe(() => {
-      this.fetchMenuItems();
-      this.notificationService.show('Menu item has been deleted successfully!');
+    this.menuItemService.deleteMenuItem(menuItem.menuItemID).subscribe({
+      next: () => {
+        this.fetchMenuItems();
+        this.notificationService.show('Menu item has been deleted successfully!');
+      },
+      error: (err) => {
+        console.error('Error deleting menu item:', err);
+      }
     });
   }
-
-  // viewDetails(menuItem: MenuItem): void {
-  //   this.selectedMenuItem = menuItem;
-  // }
 
   cancel(): void {
     this.selectedMenuItem = null;
   }
 
-  // Pagination methods
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -131,19 +154,15 @@ export class MenuOverviewComponent implements OnInit {
     }
   }
 
-  // New method to calculate total pages
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
-
-  // Method to open the MenuItem details modal
   viewDetails(menuItem: MenuItem) {
-    this.selectedMenuItem = menuItem; // Set the selected menu item to display its details
+    this.selectedMenuItem = menuItem; 
   }
 
-  // Method to close the MenuItem details modal
   closeMenuItemDetails() {
-    this.selectedMenuItem = null; // Reset the selected menu item and close the modal
+    this.selectedMenuItem = null; 
   }
 }

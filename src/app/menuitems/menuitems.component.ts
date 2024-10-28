@@ -188,7 +188,10 @@ export class MenuitemsComponent implements OnInit {
   deleteMenuItem(menuItemID: number) {
     this.menuItemService.deleteMenuItem(menuItemID).subscribe({
       next: () => {
-        this.loadMenuItems(this.selectedMenuID as number);
+        // Reload the menu items after deletion
+        if (this.selectedMenuID !== null) {
+          this.loadMenuItems(this.selectedMenuID); // Reload menu items for the selected menu
+        }
       },
       error: (err) => console.error('Error deleting menu item:', err)
     });

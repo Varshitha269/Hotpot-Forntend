@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AdminserviceService } from '../service/adminservice.service';
+import { UserService } from '../service/user.service'; // Use the correct service
 import { User } from '../model/user.model';
 import { NotificationService } from '../service/notification.service';
-import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-customeroverview',
@@ -25,19 +24,14 @@ export class CustomeroverviewComponent implements OnInit {
   totalPages: number = 0;
   notificationMessage: string | null = null;
 
-  // Reactive Form for adding a new user
   addUserForm: FormGroup;
 
-  constructor(
-    private userService: UserService,
-    private fb: FormBuilder,
-    private notificationService: NotificationService
-  ) {
+  constructor(private userService: UserService, private fb: FormBuilder, private notificationService: NotificationService) {
     this.addUserForm = this.fb.group({
-      userID: [null],  // Initialize userID, will be set later if editing
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      userID: [0],
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phNo: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Phone number validation
+      phNo: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       addressLine: ['', Validators.required],
       city: ['', Validators.required],
@@ -45,7 +39,7 @@ export class CustomeroverviewComponent implements OnInit {
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
       country: ['', Validators.required],
       createdDate: [new Date()],
-      role: ['user',Validators.required],
+      role: ['user', Validators.required],
       isActive: [true]
     });
   }
@@ -65,11 +59,9 @@ export class CustomeroverviewComponent implements OnInit {
         this.totalPages = Math.ceil(this.users.length / this.pageSize);
         this.setPage(this.currentPage);
         this.loading = false;
-        this.notificationMessage = null; 
       },
       error: (err) => {
         console.error('Error fetching users:', err);
-        this.notificationMessage = 'Failed to load users. Please try again later.';
         this.loading = false;
       }
     });
@@ -83,18 +75,16 @@ export class CustomeroverviewComponent implements OnInit {
 
   showAddUserModal(): void {
     this.isAddUserModalOpen = true;
-    this.addUserForm.reset();  // Reset the form for adding a new user
   }
 
   closeAddUserModal(): void {
     this.isAddUserModalOpen = false;
-    this.addUserForm.reset(); // Clear the form
+    this.addUserForm.reset();
   }
 
   createUser(): void {
     if (this.addUserForm.valid) {
       const userData = this.addUserForm.value;
-      console.log('User data to send:', userData); // Debugging line
       this.userService.addUserDetails(userData).subscribe({
         next: () => {
           this.fetchUsers();
@@ -109,16 +99,12 @@ export class CustomeroverviewComponent implements OnInit {
   }
 
   deleteUser(user: User): void {
-    if (confirm(`Are you sure you want to delete user ${user.username}?`)) {
-      this.userService.deleteUserDetails(user.userID).subscribe({
-        next: () => {
-          this.fetchUsers(); // Refresh the user list after deletion
-          this.notificationService.show(`User ${user.username} has been deleted successfully!`);
-        },
-        error: (err) => {
-          console.error('Error deleting user:', err);
-          this.notificationService.show('Failed to delete user. Please try again later.');
-        }
+    if (confirm(`Are you sure you want to delete ${user.username}?`)) {
+      this.userService.deleteUserDetails(user.userID).subscribe(() => {
+        this.fetchUsers();
+        this.notificationService.show('User has been deleted successfully!');
+      }, err => {
+        console.error('Error deleting user:', err);
       });
     }
   }

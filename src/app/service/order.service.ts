@@ -28,14 +28,11 @@ export class OrderService {
   }
 
   
-  updateOrderStatus(orderId: number): Observable<any> {
-    return this.http.patch(
-        `${this.orderurl}/${orderId}`, // Ensure this matches your API
-        {
-            "status": "Cancelled" // Sending the status update
-        }
-    );
-}
+  updateOrderStatus(order: any): Observable<any> {
+    const orderId = order.orderID; // Assuming orderID is part of the order object
+    return this.http.put(`${this.orderurl}/${orderId}`, order); // Use the PUT method to update the order
+  }
+  
 
 
 

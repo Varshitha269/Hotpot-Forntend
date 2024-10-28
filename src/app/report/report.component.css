@@ -1,25 +1,51 @@
 .container {
-    max-width: 1200px;
-  }
-  
-  .card {
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-  }
-  
-  h3 {
-    margin-bottom: 1.5rem;
-  }
-  
-  .table {
-    margin-top: 1rem;
-  }
-  
-  .list-group-item {
-    display: flex;
-    justify-content: space-between;
-  }
-  
+  max-width: 1200px;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+h3 {
+  margin-bottom: 1.5rem;
+}
+
+.table {
+  margin-top: 1rem;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+}
+/* Container styling to ensure charts are in a single row */
+.row .col-md-5{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Set a maximum width and height for the charts */
+canvas#barChart, canvas#pieChart {
+max-width: 300px;  /* Adjust the width as necessary */
+max-height: 300px; /* Adjust the height as necessary */
+width: 100%;       /* Make the canvas responsive */
+height: auto;      /* Auto adjust the height based on aspect ratio */
+}
+
+/* Optional: Add some margin between the two charts */
+.row .col-md-5 {
+margin-bottom: 20px;
+}
+
+/* Ensure the charts are responsive for smaller screens */
+@media (max-width: 768px) {
+canvas#barChart, canvas#pieChart {
+    max-width: 200px;
+    max-height: 200px;
+}
+}

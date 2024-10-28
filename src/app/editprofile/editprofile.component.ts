@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { PayloadService } from '../service/payload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editprofile',
@@ -16,7 +17,6 @@ export class EditprofileComponent implements OnInit {
   userForm: FormGroup;
   currentStep: number = 1;
   
-
   constructor(private fb: FormBuilder, private userService: UserService, private payloaddata: PayloadService) {
     this.userForm = this.fb.group({
       userID: [this.payloaddata.getUserId],  // Initialize with User ID
@@ -43,7 +43,7 @@ export class EditprofileComponent implements OnInit {
         username: userData.username,
         email: userData.email,
         phNo: userData.phNo,
-        password: userData.password, // Assuming you want to allow updating the password
+        password: userData.password,
         addressLine: userData.addressLine,
         city: userData.city,
         state: userData.state,
@@ -62,24 +62,40 @@ export class EditprofileComponent implements OnInit {
 
     if (!userdata.userID || userdata.userID <= 0) {
       console.error('Invalid UserID:', userdata.userID);
-      alert('Please provide a valid User ID before updating.');
+      Swal.fire({
+        title: 'Invalid User ID',
+        text: 'Please provide a valid User ID before updating.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
       return;
     }
 
     this.userService.updateUserDetails(userdata).subscribe(
       response => {
         console.log('User details updated successfully:', response);
-        alert('User details updated successfully!');
-        this.userForm.reset();
+        Swal.fire({
+          title: 'Success',
+          text: 'User details updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.userForm.reset();
+        });
       },
       (error) => {
-        console.error('Error Updating user details:', error);
-        alert('An error occurred while updating user details. Please try again.');
-        this.userForm.reset();
-      });
+        console.error('Error updating user details:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred while updating user details. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.userForm.reset();
+        });
+      }
+    );
   }
-
-
 
   nextStep(): void {
     if (this.currentStep < 3) {

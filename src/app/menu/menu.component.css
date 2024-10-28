@@ -1,12 +1,16 @@
 .container {
-    max-width: 800px;
-  }
-  
-  .table th, .table td {
-    text-align: center;
-  }
-  
-  .btn {
-    margin-right: 5px;
-  }
-  
+  max-width: 1000px; /* Increased max-width */
+}
+
+.table {
+  width: 100%; /* Full width of the container */
+}
+
+.table th, .table td {
+  text-align: center;
+  padding: 15px; /* Increased padding for larger appearance */
+}
+
+.btn {
+  margin-right: 5px;
+}

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OrderService } from '../service/order.service';
 import { PayloadService } from '../service/payload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listorders',
@@ -56,10 +57,6 @@ export class ListordersComponent implements OnInit {
     const currentDate = new Date(); // Get current date
     const diffInMinutes = (currentDate.getTime() - orderDate.getTime()) / 60000;
 
-    //console.log('Order Date:', orderDate); // Log order date
-   // console.log('Current Date:', currentDate); // Log current date
-    //console.log('Difference in minutes:', diffInMinutes); // Log difference in minutes
-
     // Button is visible if order is created within the last 30 minutes and not cancelled
     return diffInMinutes <= 30 && order.orderStatus !== 'Cancelled';
   }
@@ -67,14 +64,44 @@ export class ListordersComponent implements OnInit {
   // Function to cancel the order and update the order status
   cancelOrder(order: any): void {
     console.log('Canceling order with ID:', order.orderID); // Log the order ID
-    this.orderService.updateOrderStatus(Number(order.orderID)).subscribe(
-      (response) => {
-        console.log('Order canceled:', response);
-      },
-      (error) => {
-        console.error('Error cancelling order:', error);
-        alert('Failed to cancel the order. Please check the order ID and try again.');
+
+    // Show confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to cancel this order?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, cancel it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Create an updated order object
+        const updatedOrder = {
+          ...order, // Spread the existing order properties
+          orderStatus: 'Cancelled' // Update the order status
+        };
+
+        this.orderService.updateOrderStatus(updatedOrder).subscribe(
+          (response) => {
+            Swal.fire({
+              title: 'Cancelled!',
+              text: 'Your order has been canceled.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            });
+            this.getOrdersByUserId();
+          },
+          (error) => {
+            console.error('Error cancelling order:', error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to cancel the order. Please check the order ID and try again.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            });
+          }
+        );
       }
-    );
+    });
   }
 }

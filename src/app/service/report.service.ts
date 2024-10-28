@@ -30,8 +30,8 @@ export class ReportService {
   }
 
   // Get total categories by restaurant ID
-  getTotalCategories(restaurantId: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/total-categories/${restaurantId}`);
+  getTotalCategories(restaurantId: number): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/total-categories/${restaurantId}`);
   }
 
   // Get total orders by restaurant ID
@@ -45,10 +45,10 @@ export class ReportService {
   }
 
   // Get revenue by period
-  getRevenueByPeriod(restaurantId: number, period: string): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/revenue/${restaurantId}/${period}`);
+  getRevenueByPeriod(restaurantId: number, period: string): Observable<number[]> {
+    return this.http.get<number[]>(`/api/revenue/${restaurantId}/${period}`);
   }
-
+  
   // Get average order value by restaurant ID
   getAverageOrderValue(restaurantId: number): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/average-order-value/${restaurantId}`);

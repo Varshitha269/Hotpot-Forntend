@@ -3,7 +3,6 @@
 
   <button (click)="showAddMenuItemModal()" class="action-button">Add New Menu Item</button>
 
-  <!-- Notification Card -->
   <div *ngIf="notificationMessage" class="notification-card shake">
     {{ notificationMessage }}
   </div>
@@ -11,7 +10,7 @@
   <table class="user-table">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Item Name</th> <!-- Changed from Name to Item Name -->
         <th>Price</th>
         <th>Description</th>
         <th>Actions</th>
@@ -30,62 +29,91 @@
     </tbody>
   </table>
 
-<!-- Pagination Controls -->
-<div class="pagination-controls">
-  <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-</div>
-<!-- Menu Item Details Modal -->
-<div *ngIf="selectedMenuItem" class="modal">
-  <div class="modal-content card">
-    <span (click)="closeMenuItemDetails()" class="close-button">&times;</span>
-    <h3>Menu Item Details</h3>
-
-    <p><strong>Name:</strong> {{ selectedMenuItem.itemName }}</p>
-    <p><strong>Description:</strong> {{ selectedMenuItem.description }}</p>
-    <p><strong>Category:</strong> {{ selectedMenuItem.category }}</p>
-    <p><strong>Price:</strong> ₹{{ selectedMenuItem.price }}</p>
-    <p><strong>Special Dietary Info:</strong> {{ selectedMenuItem.specialDietaryInfo }}</p>
-    <p><strong>Taste Info:</strong> {{ selectedMenuItem.tasteInfo }}</p>
-    <p><strong>Nutritional Info:</strong> {{ selectedMenuItem.nutritionalInfo }}</p>
-    <p><strong>Availability Time:</strong> {{ selectedMenuItem.availabilityTime }}</p>
-    <p><strong>In Stock:</strong> {{ selectedMenuItem.isInStock ? 'Yes' : 'No' }}</p>
-    <p><strong>Is Available:</strong> {{ selectedMenuItem.isAvailable ? 'Yes' : 'No' }}</p>
-    <p><strong>Discounts:</strong> {{ selectedMenuItem.discounts }}%</p>
-    <p><strong>Image URL:</strong> <a [href]="selectedMenuItem.imageUrl" target="_blank">{{ selectedMenuItem.imageUrl }}</a></p>
-    <p><strong>Created Date:</strong> {{ selectedMenuItem.createdDate | date }}</p>
-
-    <button (click)="closeMenuItemDetails()" class="action-button">Close</button>
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
-</div>
 
+  <div *ngIf="selectedMenuItem" class="modal">
+    <div class="modal-content card">
+      <span (click)="closeMenuItemDetails()" class="close-button">&times;</span>
+      <h3>Menu Item Details</h3>
 
-  <!-- Add Menu Item Modal -->
+      <p><strong>Item Name:</strong> {{ selectedMenuItem.itemName }}</p> <!-- Changed from Name to Item Name -->
+      <p><strong>Description:</strong> {{ selectedMenuItem.description }}</p>
+      <p><strong>Category:</strong> {{ selectedMenuItem.category }}</p>
+      <p><strong>Price:</strong> ₹{{ selectedMenuItem.price }}</p>
+      <p><strong>Special Dietary Info:</strong> {{ selectedMenuItem.specialDietaryInfo }}</p>
+      <p><strong>Taste Info:</strong> {{ selectedMenuItem.tasteInfo }}</p>
+      <p><strong>Nutritional Info:</strong> {{ selectedMenuItem.nutritionalInfo }}</p>
+      <p><strong>Availability Time:</strong> {{ selectedMenuItem.availabilityTime }}</p>
+      <p><strong>In Stock:</strong> {{ selectedMenuItem.isInStock ? 'Yes' : 'No' }}</p>
+      <p><strong>Is Available:</strong> {{ selectedMenuItem.isAvailable ? 'Yes' : 'No' }}</p>
+      <p><strong>Discounts:</strong> {{ selectedMenuItem.discounts }}%</p>
+      <p><strong>Image URL:</strong> <a [href]="selectedMenuItem.imageUrl" target="_blank">{{ selectedMenuItem.imageUrl }}</a></p>
+      <p><strong>Created Date:</strong> {{ selectedMenuItem.createdDate | date }}</p>
+
+      <button (click)="closeMenuItemDetails()" class="action-button">Close</button>
+    </div>
+  </div>
+
   <div *ngIf="isAddMenuItemModalOpen" class="modal">
     <div class="modal-content card">
       <span (click)="closeAddMenuItemModal()" class="close-button">&times;</span>
       <h3>Add Menu Item</h3>
       <form [formGroup]="addMenuItemForm" (ngSubmit)="createMenuItem()">
-        <label for="name">Name:</label>
-        <input type="text" id="name" formControlName="name" required>
+        <label for="menuID">Menu:</label>
+        <select id="menuID" formControlName="menuID" required>
+          <option value="" disabled>Select Menu</option>
+          <option *ngFor="let menu of menus" [value]="menu.menuID">{{ menu.menuName }}</option>
+        </select>
+
+        <label for="itemName">Item Name:</label> <!-- Changed from Name to Item Name -->
+        <input id="itemName" type="text" formControlName="itemName" required>
 
         <label for="price">Price:</label>
-        <input type="number" id="price" formControlName="price" required>
+        <input id="price" type="number" formControlName="price" required>
 
         <label for="description">Description:</label>
         <textarea id="description" formControlName="description" required></textarea>
 
+        <label for="category">Category:</label> <!-- New category input -->
+        <input id="category" type="text" formControlName="category" required>
+
+        <label for="specialDietaryInfo">Special Dietary Info:</label>
+        <input id="specialDietaryInfo" type="text" formControlName="specialDietaryInfo">
+
+        <label for="tasteInfo">Taste Info:</label>
+        <input id="tasteInfo" type="text" formControlName="tasteInfo">
+
+        <label for="nutritionalInfo">Nutritional Info:</label>
+        <input id="nutritionalInfo" type="text" formControlName="nutritionalInfo">
+
+        <label for="availabilityTime">Availability Time:</label>
+        <input id="availabilityTime" type="text" formControlName="availabilityTime">
+
+        <label for="isInStock">In Stock:</label>
+        <select id="isInStock" formControlName="isInStock">
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
+        </select>
+
         <label for="imageUrl">Image URL:</label>
-        <input type="text" id="imageUrl" formControlName="imageUrl" required>
+        <input id="imageUrl" type="text" formControlName="imageUrl" required>
+
+        <label for="isAvailable">Is Available:</label>
+        <select id="isAvailable" formControlName="isAvailable">
+          <option [value]="true">Yes</option>
+          <option [value]="false">No</option>
+        </select>
+
+        <label for="discounts">Discounts (%):</label>
+        <input id="discounts" type="number" formControlName="discounts">
 
         <button type="submit" class="action-button" [disabled]="addMenuItemForm.invalid">Add Menu Item</button>
         <button type="button" (click)="closeAddMenuItemModal()" class="action-button">Cancel</button>
       </form>
     </div>
   </div>
-</div>
-
-<div *ngIf="loading" class="loading-spinner">
-  Loading...
 </div>

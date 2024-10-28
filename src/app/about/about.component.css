@@ -1,516 +1,396 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800&amp;display=swap');
-
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+/* Main About Us Container */
+.about-us-container {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9; /* Slightly lighter background for contrast */
+  padding: 60px 20px;
+  text-align: left;
+  border-radius: 10px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-body {
-  margin: 0;
+/* About Us Header */
+.about-us-header {
+  text-align: left;
+  margin-bottom: 20px; /* Adjusted margin */
 }
 
-.wk-desk-1 {
-  width: 8.333333%;
+.about-us-header h1 {
+  font-size: 50px;
+  color: #ff5722; /* Changed to a vibrant color */
+  border-left: 6px solid #ff8c00; /* Slightly different shade for contrast */
+  padding-left: 20px;
+  display: inline-block;
+  transition: transform 0.3s ease; /* Added transformation effect */
 }
 
-.wk-desk-2 {
-  width: 16.666667%;
+.about-us-header h1:hover {
+  transform: scale(1.05); /* Scale effect on hover */
 }
 
-.wk-desk-3 {
-  width: 25%;
+/* Combined Description Styles */
+.about-description {
+  background-color: rgba(255, 255, 255, 0.9); /* Unified background for all paragraphs */
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth background transition */
 }
 
-.wk-desk-4 {
-  width: 33.333333%;
+.about-description:hover {
+  background-color: #ffefdb; /* Light color on hover */
 }
 
-.wk-desk-5 {
-  width: 41.666667%;
+.about-description p {
+  font-size: 20px;
+  color: #444; /* Darker text for better readability */
+  margin: 10px 0; /* Margin between paragraphs */
+  line-height: 1.6; /* Improved line height for readability */
 }
 
-.wk-desk-6 {
-  width: 50%;
+/* Button Styles */
+.view-work-btn {
+  background-color: #ff8c00; /* Bright button color */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Added transformation effect */
+  display: block;
+  margin: 20px auto; /* Centers the button horizontally */
 }
 
-.wk-desk-7 {
-  width: 58.333333%;
+.view-work-btn:hover {
+  background-color: #e67e22; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
-.wk-desk-8 {
-  width: 66.666667%;
+
+
+/* What We Do Section */
+.what-we-do {
+  margin-top: 60px;
+  text-align: center;
 }
 
-.wk-desk-9 {
-  width: 75%;
+.what-we-do h2 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 40px;
 }
 
-.wk-desk-10 {
-  width: 83.333333%;
+.services {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.wk-desk-11 {
-  width: 91.666667%;
+.service {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.4s ease, background-color 0.4s ease;
+  width: 25%; /* Adjust the size to make it smaller */
+  max-width: 400px; /* Ensure that the card does not become too large */
+  cursor: pointer;
 }
 
-.wk-desk-12 {
+.service:hover {
+  transform: scale(1.05); /* Slightly grow the card on hover */
+  background-color: #f3c267; /* Change background color on hover */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service:hover h3, 
+.service:hover p {
+  color: white; /* Change text color on hover */
+}
+
+.service img {
+  width: 80px; /* Adjust the size of the images to be smaller */
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.service:hover img {
+  transform: scale(1.1); /* Slightly enlarge the image on hover */
+}
+
+.service h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.service p {
+  color: #777;
+  font-size: 14px;
+}
+/* Team Section Styling */
+.team-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.team-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.team-member {
+  width: 250px;
+  height: 350px;
+  perspective: 1000px;
+}
+
+.card-inner {
   width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  position: relative;
+  cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-  .wk-ipadp-1 {
-    width: 8.333333%;
-  }
-
-  .wk-ipadp-2 {
-    width: 16.666667%;
-  }
-
-  .wk-ipadp-3 {
-    width: 25%;
-  }
-
-  .wk-ipadp-4 {
-    width: 33.333333%;
-  }
-
-  .wk-ipadp-5 {
-    width: 41.666667%;
-  }
-
-  .wk-ipadp-6 {
-    width: 50%;
-  }
-
-  .wk-ipadp-7 {
-    width: 58.333333%;
-  }
-
-  .wk-ipadp-8 {
-    width: 66.666667%;
-  }
-
-  .wk-ipadp-9 {
-    width: 75%;
-  }
-
-  .wk-ipadp-10 {
-    width: 83.333333%;
-  }
-
-  .wk-ipadp-11 {
-    width: 91.666667%;
-  }
-
-  .wk-ipadp-12 {
-    width: 100%;
-  }
+.card-inner:hover {
+  transform: rotateY(180deg);
 }
 
-@media (max-width: 768px) {
-  .wk-tab-1 {
-    width: 8.333333%;
-  }
-
-  .wk-tab-2 {
-    width: 16.666667%;
-  }
-
-  .wk-tab-3 {
-    width: 25%;
-  }
-
-  .wk-tab-4 {
-    width: 33.333333%;
-  }
-
-  .wk-tab-5 {
-    width: 41.666667%;
-  }
-
-  .wk-tab-6 {
-    width: 50%;
-  }
-
-  .wk-tab-7 {
-    width: 58.333333%;
-  }
-
-  .wk-tab-8 {
-    width: 66.666667%;
-  }
-
-  .wk-tab-9 {
-    width: 75%;
-  }
-
-  .wk-tab-10 {
-    width: 83.333333%;
-  }
-
-  .wk-tab-11 {
-    width: 91.666667%;
-  }
-
-  .wk-tab-12 {
-    width: 100%;
-  }
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 500px) {
-  .wk-mobile-1 {
-    width: 8.333333%;
-  }
-
-  .wk-mobile-2 {
-    width: 16.666667%;
-  }
-
-  .wk-mobile-3 {
-    width: 25%;
-  }
-
-  .wk-mobile-4 {
-    width: 33.333333%;
-  }
-
-  .wk-mobile-5 {
-    width: 41.666667%;
-  }
-
-  .wk-mobile-6 {
-    width: 50%;
-  }
-
-  .wk-mobile-7 {
-    width: 58.333333%;
-  }
-
-  .wk-mobile-8 {
-    width: 66.666667%;
-  }
-
-  .wk-mobile-9 {
-    width: 75%;
-  }
-
-  .wk-mobile-10 {
-    width: 83.333333%;
-  }
-
-  .wk-mobile-11 {
-    width: 91.666667%;
-  }
-
-  .wk-mobile-12 {
-    width: 100%;
-  }
+.card-front {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-* {
-    font-family: Nunito, sans-serif;
-  }
-  
-  .text-blk {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    line-height: 20px;
-    color: rgb(7, 4, 4);
-    font-size: 14px;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 40px;
-    margin-left: 0px;
-  }
-  
-  .responsive-container-block {
-    min-height: 75px;
-    height: fit-content;
-    width: 100%;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0px;
-    margin-right: auto;
-    margin-bottom: 0px;
-    margin-left: auto;
-    justify-content: flex-start;
-  }
-  
-  .responsive-container-block.bigContainer {
-    background-image: initial;
-    background-position-x: initial;
-    background-position-y: initial;
-    background-size: initial;
-    background-repeat-x: initial;
-    background-repeat-y: initial;
-    background-attachment: initial;
-    background-origin: initial;
-    background-clip: initial;
-    background-color: rgb(229, 252, 159);
-    padding-top: 10px;
-    padding-right: 20px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    margin: 0 0 0 0;
-  }
-  
-  .responsive-container-block.Container {
-    max-width: 1320px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px;
-    margin-right: auto;
-    margin-bottom: 80px;
-    margin-left: auto;
-    padding-top: 10px;
-    padding-right: 0px;
-    padding-bottom: 10px;
-    padding-left: 0px;
-  }
-  
-  .responsive-container-block.leftSide {
-    width: auto;
-    align-items: flex-start;
-    padding-top: 10px;
-    padding-right: 0px;
-    padding-bottom: 10px;
-    padding-left: 0px;
-    flex-direction: column;
-    position: static;
-    margin-top: 0px;
-    margin-right: auto;
-    margin-bottom: 0px;
-    margin-left: auto;
-    max-width: 300px;
-  }
-  
-  .text-blk.heading {
-    font-size: 40px;
-    line-height: 64px;
-    font-weight: 900;
-    color: #00B2EB;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 40px;
-    margin-left: 0px;
-    text-align: left; /* Added for left alignment */
+.card-front img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
-.text-blk.btn {
-    /* ... your button styles ... */
-    text-align: center; /* Center the text within the button */
+.card-front h3 {
+  font-size: 18px;
+  margin: 10px 0;
 }
 
-.text-blk {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    line-height: 20px;
-    color: rgb(7, 4, 4);
-    font-size: 14px;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 40px;
-    margin-left: 0px;
-    text-align: justify; /* Justify the text within the paragraph */
+.card-front p {
+  font-size: 14px;
+  color: #777;
 }
-  
-  .responsive-container-block.rightSide {
-    width: 675px;
-    position: relative;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    display: flex;
-    height: 700px;
-    min-height: auto;
-  }
-  
-  .number1img {
-    margin-top: 39%;
-    margin-right: 80%;
-    margin-bottom: 29%;
-    margin-left: 0px;
-    height: 32%;
-    width: 20%;
-    position: absolute;
-  }
-  
-  .number2img {
-    margin-top: 19%;
-    margin-right: 42%;
-    margin-bottom: 42%;
-    margin-left: 23%;
-    width: 35%;
-    height: 39%;
-    position: absolute;
-  }
-  
-  .number3img {
-    width: 13%;
-    height: 21%;
-    position: absolute;
-    margin-top: 62%;
-    margin-right: 64%;
-    margin-bottom: 30%;
-    margin-left: 23%;
-  }
-  
-  .number4vid {
-    width: 34%;
-    height: 33%;
-    position: absolute;
-    margin-top: 62%;
-    margin-right: 27%;
-    margin-bottom: 0px;
-    margin-left: 39%;
-  }
-  
-  .number5img {
-    position: absolute;
-    width: 13%;
-    height: 21%;
-    margin-top: 38%;
-    margin-right: 27%;
-    margin-bottom: 41%;
-    margin-left: 60%;
-  }
-  
-  .number6img {
-    position: absolute;
-    margin-top: 0px;
-    margin-right: 3%;
-    margin-bottom: 67%;
-    margin-left: 62%;
-    width: 35%;
-    height: 33%;
-  }
-  
-  .number7img {
-    position: absolute;
-    width: 25%;
-    margin-top: 40%;
-    margin-right: 0px;
-    margin-bottom: 18%;
-    margin-left: 75%;
-    height: 42%;
-  }
-  
-  .text-blk.subHeading {
-    font-size: 18px;
-    line-height: 25px;
-  }
-  
-  @media (max-width: 1024px) {
-    .responsive-container-block.Container {
-      flex-direction: column-reverse;
-    }
-  
-    .text-blk.heading {
-      text-align: center;
-      max-width: 370px;
-    }
-  
-    .text-blk.subHeading {
-      text-align:justify;
-    }
-  
-    .responsive-container-block.leftSide {
+
+.card-back {
+  background-color: #ff8c00;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.team-details {
+  text-align: center;
+}
+
+.social-icons a {
+  margin-right: 15px;  /* Spacing between icons */
+  text-decoration: none;  /* Remove underline from links */
+}
+
+/* Set a larger size for the icons */
+.social-icons a i {
+  font-size: 40px;      /* Adjust icon size for bigger icons */
+  transition: color 0.3s ease;  /* Smooth color transition on hover */
+  color: #333;          /* Default icon color */
+}
+
+/* Color change on hover */
+.social-icons a:hover i {
+  color: #ff5722;      /* Example color (you can use any color) */
+}
+
+
+/* Terms Section */
+.terms-section {
+  margin-top: 60px;
+  padding: 60px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  color: #333;
+}
+
+.terms-section h2 {
+  font-size: 36px;
+  color: #ff5722;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.terms-content h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.terms-content p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  border-left: 3px solid #ff5722;
+  transition: border-left 0.3s ease, color 0.3s ease;
+}
+
+/* Entire line hover effect including bullet and text */
+.terms-content p:hover {
+  border-left: 5px solid #e64a19;
+  color: #333;
+}
+
+/* UL and LI custom styling */
+.terms-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.terms-section ul li {
+  font-size: 18px;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 40px; /* Adjust to ensure space for bullet */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.terms-section ul li::before {
+  content: '\2022';
+  color: #ff5722;
+  font-size: 24px;
+  position: absolute;
+  left: 0; /* Align bullet point on the left */
+  top: 0;
+  transition: color 0.3s ease;
+}
+
+/* On hover, change both bullet point and text color */
+.terms-section ul li:hover {
+  color: #333;
+}
+
+.terms-section ul li:hover::before {
+  color: #e64a19;
+}
+
+
+/* Services Details Section */
+.services-details {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to right, #f2bb5c, #f3e277); /* Light gradient background */
+  color: #333; /* Darker text color for contrast */
+  padding: 40px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Lighter shadow for a clean look */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 75%; /* Reduce card width */
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+.services-details:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Slightly enhanced shadow on hover */
+}
+
+.services-details h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555; /* Softer text color for the heading */
+}
+
+.services-details p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #666; /* Softer color for description text */
+}
+
+.services-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services-details li {
+  background: rgba(255, 255, 255, 0.8); /* Lighter background for list items */
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  position: relative;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Light shadow for depth */
+}
+
+.services-details li:hover {
+  background: rgb(243, 230, 172); /* Slightly lighter background on hover */
+  transform: translateY(-2px);
+}
+
+.services-details li::before {
+  content: "✓"; /* Checkmark icon */
+  color: #28a745; /* Green checkmark for positive feeling */
+  font-size: 18px;
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  transition: transform 0.3s ease;
+}
+
+.services-details li:hover::before {
+  transform: scale(1.2);
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .services {
+      flex-direction: column;
       align-items: center;
-      max-width: 480px;
-    }
-  
-    .responsive-container-block.rightSide {
-      margin-top: 0px;
-      margin-right: auto;
-      margin-bottom: 100px;
-      margin-left: auto;
-    }
-  
-    .responsive-container-block.rightSide {
-      margin: 0 auto 70px auto;
-    }
+  }
+
+  .service {
+      width: 80%;
+      margin-bottom: 30px;
   }
   
-  @media (max-width: 768px) {
-    .responsive-container-block.rightSide {
-      width: 450px;
-      height: 450px;
-    }
-  
-    .responsive-container-block.leftSide {
-      max-width: 450px;
-    }
+  .team-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-  
-  @media (max-width: 500px) {
-    .number1img {
-      display: none;
-    }
-  
-    .number2img {
-      display: none;
-    }
-  
-    .number3img {
-      display: none;
-    }
-  
-    .number5img {
-      display: none;
-    }
-  
-    .number6img {
-      display: none;
-    }
-  
-    .number7img {
-      display: none;
-    }
-  
-    .responsive-container-block.rightSide {
-      width: 100%;
-      height: 250px;
-      margin-top: 0px;
-      margin-right: 0px;
-      margin-bottom: 100px;
-      margin-left: 0px;
-    }
-  
-    .number4vid {
-      position: static;
-      margin-top: 0px;
-      margin-right: auto;
-      margin-bottom: 0px;
-      margin-left: auto;
-      width: 100%;
-      height: 100%;
-    }
-  
-    .text-blk.heading {
-      font-size: 25px;
-      line-height: 40px;
-      max-width: 370px;
-      width: auto;
-    }
-  
-    .text-blk.subHeading {
-      font-size: 18px;
-      line-height: 25px;
-    }
-  
-    .responsive-container-block.leftSide {
-      width: 100%;
-    }
+
+  .about-us-header h1 {
+      font-size: 36px;
   }
+}

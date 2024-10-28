@@ -45,10 +45,13 @@ export class FeedbackComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.userID) {
+    
+    if (this.payloadService.getUserId()=="") {
+      console.log(this.userID);
       this.router.navigate(['/app-login']); // Navigate to the login page
       return; // Exit the function early
     }
+    this.userID = Number(this.payloadService.getUserId());
     this.route.params.subscribe((params) => {
       this.restaurantID = +params['id']; // Assuming 'id' is the route parameter for restaurant ID
       // Check if userID is valid, if not navigate to login

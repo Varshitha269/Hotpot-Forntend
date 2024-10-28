@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CombinedData, MenuItem, Category,Cart } from '../model/datastructure';
+import { CombinedData, MenuItem, Category, Cart } from '../model/datastructure';
 import { RestaurantService } from '../service/restaurant.service';
 import { CartService } from '../service/cart.service';
 import { PayloadService } from '../service/payload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-restruantpage',
@@ -21,19 +22,25 @@ export class RestruantpageComponent implements OnInit {
   restaid!:number;
   loadcartdata:any[]=[];
 
-  cart:Cart[]=[];
+  cart: Cart[] = [];
 
-  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService,private cartservice:CartService,private router:Router,private payload:PayloadService) {
+  constructor(
+    private route: ActivatedRoute,
+    private restaurantService: RestaurantService,
+    private cartservice: CartService,
+    private router: Router,
+    private payload: PayloadService
+  ) {
     this.loadCartDetails();
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-        const restaurantId = params.get('id'); // Get ID from route parameters
+        const restaurantId = params.get('id');
         if (restaurantId) {
-            const id = +restaurantId; // Convert to a number
+            const id = +restaurantId;
             if (!isNaN(id)) {
-                this.fetchCombinedData(id); // Make API call with valid ID
+                this.fetchCombinedData(id);
             } else {
                 console.error('Invalid restaurant ID:', restaurantId);
             }
@@ -41,9 +48,9 @@ export class RestruantpageComponent implements OnInit {
             console.error('No restaurant ID found in route parameters.');
         }
     });
-}
+  }
 
-fetchCombinedData(restaurantId: number) {
+  fetchCombinedData(restaurantId: number) {
     this.restaurantService.getCombinedData1(restaurantId).subscribe(
         data => {
             console.log('Combined data:', data);
@@ -53,7 +60,7 @@ fetchCombinedData(restaurantId: number) {
             console.error('Error fetching combined data:', error);
         }
     );
-}
+  }
 
   calculateAverageRating(): number {
     if (!this.combinedData || this.combinedData.ratings.length === 0) return 0;
@@ -62,15 +69,15 @@ fetchCombinedData(restaurantId: number) {
   }
 
   getTotalRatingsCount(): number {
-    return this.combinedData?.ratings.length || 0; // Returns the count of ratings or 0 if not available
+    return this.combinedData?.ratings.length || 0;
   }
 
   calculatePriceForTwo(): number {
-    return 2 * 100; // Replace with actual logic
+    return 2 * 100;
   }
 
   calculateDeliveryTime(): number {
-    return 25; // Replace with actual logic
+    return 25;
   }
 
   getMenuCategories(): Category[] {
@@ -87,7 +94,7 @@ fetchCombinedData(restaurantId: number) {
     });
 
     return Object.values(categoriesMap);
-}
+  }
 
   calculateItemRating(item: MenuItem): number {
     const ratingsForItem = this.combinedData?.ratings.filter(r => r.restaurantID === item.menuID) || [];
@@ -99,100 +106,111 @@ fetchCombinedData(restaurantId: number) {
   getItemRatingsCount(item: MenuItem): number {
     return (this.combinedData?.ratings.filter(r => r.restaurantID === item.menuID).length) || 0;
   }
+
   private loadCartDetails() {
     this.cartservice.getCartDetails().subscribe((result) => {
-      console.log('Cart items:', result); // Log the result to inspect
+      console.log('Cart items:', result);
       this.loadcartdata = result;
-      
     });
   }
 
-
-  
-
-
   addItemToCart(item: MenuItem): void {
     if (!item.isInStock) {
-      alert('This item is not in stock.');
-      return; 
+      Swal.fire({
+        icon: 'warning',
+        title: 'Out of Stock',
+        text: 'This item is not in stock.',
+      });
+      return;
     }
 
     const currentTime = new Date();
 
-  // Check if availabilityTime is "Anytime"
-  if (item.availabilityTime !== "Anytime") {
-    const [startTime, endTime] = item.availabilityTime.split(' - ').map(time => this.convertToDate(currentTime, time.trim()));
-
-    // Check if current time is within the allowed range
-    if (currentTime < startTime || currentTime > endTime) {
-      alert(`You can only order this item between ${item.availabilityTime}.`);
-      return;
+    if (item.availabilityTime !== "Anytime") {
+      const [startTime, endTime] = item.availabilityTime.split(' - ').map(time => this.convertToDate(currentTime, time.trim()));
+      if (currentTime < startTime || currentTime > endTime) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Item Availability',
+          text: `You can only order this item between ${item.availabilityTime}.`,
+        });
+        return;
+      }
     }
-  }
-  
+
     if (this.loadcartdata.length > 0) {
       const existingRestaurantId = this.loadcartdata[0].restaurantId;
-  
-      // Fetch the restaurant ID based on the menu item
+
       this.restaurantService.getRestaurantIdByMenuId(item.menuID).subscribe((result) => {
         this.restaid = result;
-  
-        // Check if the restaurant IDs match after we have received the response
+
         if (existingRestaurantId !== this.restaid) {
-          alert('You can only add items from the same restaurant.');
-          return; 
+          Swal.fire({
+            icon: 'error',
+            title: 'Different Restaurant',
+            text: 'You can only add items from the same restaurant.',
+          });
+          return;
         }
-  
-        // If they match, proceed to add the item to the cart
+
         this.addToCart(item);
       });
     } else {
-      // If the cart is empty, just add the item to the cart directly
       this.addToCart(item);
     }
   }
-  
+
   private convertToDate(currentDate: Date, time: string): Date {
     const [timePart, period] = time.split(' ');
     const [hours, minutes] = timePart.split(':').map(Number);
     const date = new Date(currentDate);
-    
-    // Convert to 24-hour format
+
     const adjustedHours = period === 'PM' && hours < 12 ? hours + 12 : hours;
-    date.setHours(adjustedHours % 24, minutes || 0, 0, 0); // Reset seconds and milliseconds
+    date.setHours(adjustedHours % 24, minutes || 0, 0, 0);
     return date;
   }
 
   private addToCart(item: MenuItem): void {
     console.log('Item added to cart:', item);
     const userId = this.payload.getUserId();
-    if (!userId) {
-      // Redirect to login if the user ID is null
-      alert('You need to log in to add items to the cart.');
-      this.router.navigate(['/app-login']); // Assuming '/login' is your login route
+
+    if (userId === '') {
+      Swal.fire({
+        icon: 'info',
+        title: 'Login Required',
+        text: 'You need to log in to add items to the cart.',
+      }).then(() => {
+        this.router.navigate(['/app-login']);
+      });
       return;
     }
+
     const newCartItem: Cart = {
       cartID: 0,
       userID: Number(userId),
       menuItemID: item.menuItemID,
       quantity: 1,
       price: item.price,
-      createdDate: new Date() // Set current date
+      createdDate: new Date()
     };
-  
+
     this.cartservice.addCartDetails(newCartItem).subscribe(
       (response) => {
-        alert('Item added to the cart');
-        // Optionally reload cart details after adding the item
+        Swal.fire({
+          icon: 'success',
+          title: 'Added to Cart',
+          text: 'Item added to the cart successfully!',
+        });
         this.loadCartDetails();
       },
       (error) => {
         console.error('Error adding Cart details:', error);
-        alert('An error occurred while adding Cart details. Please try again.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while adding Cart details. Please try again.',
+        });
       }
     );
   }
-  
-  
 }

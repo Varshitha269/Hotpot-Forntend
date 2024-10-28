@@ -1,23 +1,130 @@
-<div class="responsive-container-block bigContainer">
-    <div class="responsive-container-block Container">
-      <div class="responsive-container-block leftSide">
-        <p class="text-blk heading">
-        <b> HOTPOT - The Online food Delivery App</b>
+<div class="about-us-container">
+  <div class="about-us-header">
+      <h1>About HOTPOT - Revolutionizing Online Food Delivery</h1>
+      <div class="about-description">
+        <p style="text-align: justify;">
+          Welcome to HOTPOT, your trusted partner for an exceptional food delivery experience. At HOTPOT, we are dedicated to bringing a world of culinary delights right to your doorstep. Whether you're craving a quick meal from your favorite local restaurant or looking to explore new, exotic cuisines, HOTPOT has you covered. With access to a wide network of restaurants, ranging from neighborhood favorites to world-renowned chains, we make sure you get what you're craving, whenever you need it.
         </p>
-        <p class="text-blk subHeading">
-         <b> Craving a steaming hotpot experience without leaving the comfort of your home? </b>Look no further! Our online hotpot delivery service brings the authentic flavors of hotpot right to your doorstep. With a wide variety of ingredients and customizable options, you can create your perfect hotpot meal every time.       </p>
-        <p class="text-blk subHeading">Our mission is to provide you with the most convenient and delicious hotpot experience possible. We source only the freshest ingredients and ensure they are prepared with the utmost care. Our user-friendly app makes ordering your favorite hotpot meal a breeze, so you can enjoy the warmth and comfort of hotpot anytime, anywhere</p>
-      
-        </div>
-      <div class="responsive-container-block rightSide">
-        <img class="number1img" src="/assets/hotpot.jpg">
-        <img class="number2img" src="/assets/northindian.jpg">
-        <img class="number3img" src="/assets/milkshakes.jpg"/>
-        <img class="number5img" src="/assets/southindian.jpg">
-        <iframe allowfullscreen="allowfullscreen" class="number4vid" poster="/assets/video.mp4" src="/assets/video.mp4" muted>
-                </iframe>
-        <img class="number7img" src="/assets/restuarants.jpg">
-        <img class="number6img" src="/assets/foods.jpg">
+        <p style="text-align: justify;">
+          Our app is designed with a focus on convenience and efficiency, allowing you to browse extensive menus, customize your orders, and track your delivery in real-time, ensuring a seamless experience from start to finish. No matter where you are or what time it is, HOTPOT ensures timely and hassle-free delivery, powered by a dedicated fleet of delivery partners who work around the clock to keep you satisfied.
+        </p>
+        <p style="text-align: justify;">
+          With thousands of partner restaurants in every major city, HOTPOT not only makes food delivery fast and easy but also empowers local businesses by giving them a platform to reach more customers. We're proud to serve millions of satisfied customers globally, making a lasting impact on how people enjoy food. HOTPOT is more than just food delivery; it's a community-driven platform built to connect food lovers with the best chefs, restaurants, and homegrown culinary heroes.
+        </p>
+      </div>
+      <button class="view-work-btn">EXPLORE OUR SERVICES</button>
+    </div>
+    
+    
+
+  <div class="what-we-do">
+    <h2>What We Do</h2>
+    <div class="services">
+      <div class="service">
+          <img src="images/fastdelivery.jpeg" alt="Discount Services" />
+          <h3>Fast Delivery</h3>
+        <p>We partner with the best local restaurants and food chains to ensure fast and fresh delivery of your favorite meals directly to your doorstep.</p>
+      </div>
+      <div class="service">
+          <img src="images/ontime.jpeg" alt="Discount Services" />
+          <h3>On Time Service</h3>
+      <p>Fresh food is food which has not been preserved and has not spoiled yet. For vegetables and fruits, this means freshness.</p>
+    </div>
+        <div class="service">
+          <img src="images/vatfree.jpeg" alt="Discount Services" />
+          <h3>Vat Free</h3>
+      <p>Fresh food is food which has not been preserved and has not spoiled yet. For vegetables and fruits, this means freshness.</p>
+    </div>
+      <div class="service">
+          <img src="images/diverse.jpeg" alt="Discount Services" />
+          <h3>Diverse Cuisine Options</h3>
+        <p>From traditional dishes to exotic cuisines, HOTPOT offers a wide range of food options to satisfy every palate and preference.</p>
+      </div>
+      <div class="service">
+          <img src="images/easyorder.jpeg" alt="Discount Services" />
+          <h3>Easy Order Management</h3>
+        <p>Our platform allows you to easily manage your orders, track delivery, and communicate with our team to ensure a seamless experience.</p>
+      </div>
+      <div class="service">
+          <img src="images/payment.jpeg" alt="Discount Services" />
+          <h3>Secure Payment</h3>
+        <p>We offer multiple payment options with secure, encrypted transactions, giving you peace of mind while making payments through our app.</p>
       </div>
     </div>
   </div>
+<!-- Our Team Section -->
+<section class="team-section">
+  <h2>Our Team</h2>
+  <div class="team-grid">
+    <div class="team-member" *ngFor="let member of teamMembers">
+      <div class="card-inner">
+        <!-- Front of the card (Image and basic details) -->
+        <div class="card-front">
+          <img [src]="member.image" alt="{{ member.name }}">
+          <div class="team-info">
+            <h3>{{ member.name }}</h3>
+            <p>{{ member.position }}</p>
+          </div>
+        </div>
+
+        <!-- Back of the card (More details and social links) -->
+        <div class="card-back">
+          <div class="team-details">
+            <p>More about {{ member.name }}: {{ member.description }}</p>
+            <div class="social-icons">
+              <a [href]="member.socials.instagram" target="_blank">
+                <i class="fab fa-instagram"></i> <!-- Instagram Icon -->
+              </a>
+              <a [href]="member.socials.github" target="_blank">
+                <i class="fab fa-github"></i> <!-- GitHub Icon -->
+              </a>
+              <a [href]="member.socials.linkedin" target="_blank">
+                <i class="fab fa-linkedin"></i> <!-- LinkedIn Icon -->
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Terms and Conditions Section -->
+  <section class="terms-section">
+    <h2>Terms and Conditions</h2>
+    <div class="terms-content">
+      <h3>1. User Agreement</h3>
+      <p>By using HOTPOT, you agree to abide by our terms of service. This includes providing accurate information, adhering to our policies, and using our services lawfully.</p>
+
+      <h3>2. Privacy Policy</h3>
+      <p>Your personal data, including contact details and payment information, is protected with the highest security standards. We do not share your data with third parties without consent.</p>
+
+      <h3>3. Delivery Policy</h3>
+      <p>Our delivery team works hard to ensure timely delivery, though unforeseen circumstances may sometimes cause delays. We appreciate your understanding and patience in such cases.</p>
+
+      <h3>4. Refund and Cancellation</h3>
+      <p>Orders can be canceled within 5 minutes of placement. Refunds are processed in cases of non-delivery, incorrect items, or damaged orders, as per our policy.</p>
+
+      <h3>5. Contact and Support</h3>
+      <p>If you have any concerns or inquiries, our customer support team is available 24/7 to assist you. You can reach us through our app or by contacting support&#64;hotpot.com.</p>
+    </div>
+  </section>
+  
+  <!-- Services Details Section -->
+ <!-- Services Details Section -->
+<section class="services-details">
+  <h2>Why Choose HOTPOT?</h2>
+  <p>HOTPOT is dedicated to providing an exceptional food delivery experience, tailored to your lifestyle and preferences. Here’s why we stand out:</p>
+  <ul>
+      <li><strong>Vast Restaurant Network:</strong> Access to hundreds of restaurants and food chains, offering everything from local favorites to international delicacies.</li>
+      <li><strong>Customized Experience:</strong> Personalize your food orders based on dietary preferences, spice levels, and favorite cuisines.</li>
+      <li><strong>Live Order Tracking:</strong> Track your order in real-time, from preparation to doorstep delivery, ensuring you're always in the loop.</li>
+      <li><strong>Exclusive Deals:</strong> Enjoy special discounts and promotions exclusively available to HOTPOT users.</li>
+      <li><strong>24/7 Customer Support:</strong> We're here to assist you at any time, day or night, ensuring a smooth experience with every order.</li>
+  </ul>
+</section>
+
+</div>

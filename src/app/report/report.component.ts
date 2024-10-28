@@ -25,6 +25,7 @@ export class ReportComponent implements OnInit {
   topSellingItems: MenuItem[] = [];
   leastSellingItems: MenuItem[] = [];
   regularUsers: User[] = [];
+  
 
   // Chart Data
   barChart!: Chart<'bar'>;
@@ -36,6 +37,7 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
     this.getVegItems();
     this.getNonVegItems();
+    this.getcategories();
     this.getTotalMenuItems();
     this.getTotalOrders();
     this.getTotalRevenue();
@@ -52,6 +54,13 @@ export class ReportComponent implements OnInit {
     this.reportService.getVegItems(this.restaurantId).subscribe((data) => {
       this.vegItems = data;
       this.updateBarChart();
+    });
+  }
+  getcategories():void{
+    this.reportService.getTotalCategories(this.restaurantId).subscribe((data)=>{
+      this.totalCategories=data;
+      this.updateBarChart();
+
     });
   }
 
